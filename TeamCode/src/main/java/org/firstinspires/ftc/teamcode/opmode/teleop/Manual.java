@@ -1,14 +1,16 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 
 @TeleOp
 @Config
 public class Manual extends RobotHardware {
 
-    public static bool fieldCentric = false;
+    public static boolean fieldCentric = false;
 
     @Override
     public void init() {
