@@ -101,7 +101,7 @@ public class Hardware {
     public Pose2D updatePinpoint() {
         // Pinpoint logic
         pinpoint.update();
-        // Returns a Pose2D object with robot's position data
+        // Returns a Pose2D with robot's position data
         return (pinpoint.getPosition());
     }
 }
