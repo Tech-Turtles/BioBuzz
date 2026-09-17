@@ -15,8 +15,8 @@ public class Controller {
     private int right_stick_button, left_stick_button;
     private int left_triggerAcc, right_triggerAcc;
 
-    public Controller(Gamepad g) {
-        gamepad = g;
+    public Controller(Gamepad gamepad) {
+        this.gamepad = gamepad;
     }
 
     public void update() {
