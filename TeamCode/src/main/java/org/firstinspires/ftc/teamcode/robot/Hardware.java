@@ -46,9 +46,9 @@ public class Hardware {
 
     // Configurations of pinpoint
     // This is the sideways distance of the Forward (x) pod. + is left of center, - is right of center
-    private static final double ForwardPodOffset = 0;
+    private static final double xOffset = 0;
     // This is the forward/back distance of the Strafe (y) pod. + is forward of center, - is backward of center
-    private static final double SidewaysPodOffset = 0;
+    private static final double yOffset = 0;
     // Simple unit selection
     DistanceUnit unit = DistanceUnit.MM;
 
@@ -90,7 +90,7 @@ public class Hardware {
         imu.initialize(Hardware.imuPositioning);
 
         // Init the pinpoint
-        pinpoint.setOffsets(ForwardPodOffset, SidewaysPodOffset, unit);
+        pinpoint.setOffsets(xOffset, yOffset, unit);
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
         // This method is probably necessary after some testing:
         // pinpoint.setEncoderDirections();

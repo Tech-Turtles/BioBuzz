@@ -10,13 +10,6 @@ public class Drive {
     // Declare hardware
     public Hardware hardware;
 
-    // Set x movement speed
-    private static final double xSpeed = 1.0;
-    // Set y movement speed
-    private static final double ySpeed = 1.0;
-    // Set rotation speed (slower often feels more natural)
-    private static final double rotSpeed = 0.4;
-
     public Drive(Hardware hardware) {
         // Define hardware
         this.hardware = hardware;
@@ -24,5 +17,22 @@ public class Drive {
 
     public void robotCentric(double y, double x, double rx) {
 
+    }
+
+    public void mecanum(double forward, double strafe, double twist) {
+        // Get the raw power for each wheel
+        double fl = forward + strafe + twist;
+        double fr = forward - strafe - twist;
+        double rl = forward - strafe + twist;
+        double rr = forward + strafe - twist;
+
+        // Get the scale factor
+        double scale = Math.max(Math.abs(forward) + Math.abs(strafe) + Math.abs(twist), 1.0);
+
+        // Set motor powers
+        hardware.frontLeftDrive.setPower(fl / scale);
+        hardware.frontRightDrive.setPower(fr / scale);
+        hardware.rearLeftDrive.setPower(rl / scale);
+        hardware.rearRightDrive.setPower(rr / scale);
     }
 }
