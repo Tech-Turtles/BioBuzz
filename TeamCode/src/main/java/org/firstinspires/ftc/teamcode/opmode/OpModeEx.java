@@ -17,12 +17,19 @@ public class OpModeEx extends OpMode {
     // Declare input handling sys
     public Input input;
 
+    // Declare units used for starting the robot
+    public DistanceUnit unit = DistanceUnit.MM;
+    public AngleUnit angleUnit = AngleUnit.RADIANS;
+
     // declare start pose
-    public Pose2D start = new Pose2D(DistanceUnit.METER, 0, 0, AngleUnit.RADIANS, 0);
+    public Pose2D setStart() {
+        Pose2D start = new Pose2D(unit, 0, 0, angleUnit, 0);
+        return (start);
+    }
     @Override
     public void init() {
         // Define robot
-        robot = new Robot(hardwareMap, start);
+        robot = new Robot(hardwareMap, setStart());
         input = new Input(gamepad1, gamepad2);
     }
 
