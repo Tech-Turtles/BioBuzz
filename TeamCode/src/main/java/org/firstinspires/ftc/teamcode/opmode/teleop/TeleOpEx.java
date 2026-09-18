@@ -6,7 +6,21 @@ import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 
 public class TeleOpEx extends OpModeEx {
     // setup match timer
-    ElapsedTime timer;
+    public ElapsedTime timer;
+
+    // setup match state enum
+    public enum MatchState {
+        TELEOP,
+        ENDGAME,
+        OVER
+    }
+
+    public MatchState matchState;
+
+    protected double teleopTime = 60;
+    protected double endgameTime = 60;
+
+    protected double time = 0;
 
     @Override
     public void init() {
@@ -14,5 +28,84 @@ public class TeleOpEx extends OpModeEx {
         super.init();
         // Initialize match timer
         timer = new ElapsedTime();
+    }
+
+    @Override
+    public void start() {
+        // Now that match is starting, reset the timer
+        timer.reset();
+        // We are in the teleop section of the match
+        matchState = MatchState.TELEOP;
+        // Run the teleop init code
+        teleop();
+    }
+
+    @Override
+    public void loop() {
+        // Big state machine
+        switch (matchState) {
+            case TELEOP:
+                // Make the timer a bit handier
+                time = timer.seconds();
+                // Run the logic for the teleop
+                teleop_loop();
+                // check if we get to go to endgame yet
+                if (time >= teleopTime) {
+                    matchState = MatchState.ENDGAME;
+                    endgame();
+                }
+                // we don't want to start an infinite loop:
+                break;
+
+            case ENDGAME:
+                // Set up time
+                time = timer.seconds();
+                // Run the endgame loop
+                endgame_loop();
+                // now update the state machine
+                if (time >= (teleopTime + endgameTime)) {
+                    matchState = MatchState.OVER;
+                    over();
+                }
+                // almost forgot! this is very important
+                break;
+
+            case OVER:
+                // We don't need to worry about time here
+                // I really have no idea what someone would
+                // put in a game over loop, but this is here
+                // if anyone wants. Versatility is key.
+                over_loop();
+                break;
+        }
+
+    }
+
+    // The below methods are meant to be overridden by
+    // the children of this class so that they don't
+    // have to mess with stuff like loop()
+
+    public void teleop() {
+        // currently, do nothing
+    }
+
+    public void teleop_loop() {
+        // currently, do nothing
+    }
+
+    public void endgame() {
+        // guess what? do nothing
+    }
+
+    public void endgame_loop() {
+        // currently, do nothing
+    }
+
+    public void over() {
+        // do even more nothingness
+    }
+
+    public void over_loop() {
+        // you guessed it: do nothing
     }
 }
