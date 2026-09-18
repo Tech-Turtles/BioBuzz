@@ -30,4 +30,11 @@ public class Input {
         // Give back the list of drive values
         return (drive);
     }
+
+    public void rumble(List<Gamepad> gamepads, double duration) {
+        // Loop to go through for each gamepad and rumble it
+        for (Gamepad gamepad : gamepads) {
+            gamepad.rumble((int) duration);
+        }
+    }
 }
