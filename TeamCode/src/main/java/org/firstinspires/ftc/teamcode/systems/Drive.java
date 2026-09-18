@@ -1,10 +1,6 @@
 package org.firstinspires.ftc.teamcode.systems;
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.Gamepad;
-
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 
 public class Drive {
@@ -31,7 +27,8 @@ public class Drive {
         double rotatedForward = strafe * Math.cos(-heading) - forward * Math.sin(-heading);
         double rotatedStrafe = strafe * Math.sin(-heading) + forward * Math.cos(-heading);
         // mecanum drive now
-        mecanum (rotatedForward, rotatedStrafe, twist);
+
+        mecanum(rotatedForward, rotatedStrafe, twist);
     }
 
     public void mecanum(double forward, double strafe, double twist) {
