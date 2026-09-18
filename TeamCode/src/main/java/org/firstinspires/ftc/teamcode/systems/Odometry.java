@@ -15,4 +15,11 @@ public class Odometry {
         // Set the position of the pinpoint
         pinpoint.setPosition(start);
     }
+
+    public Pose2D position() {
+        // Update the pinpoint
+        pinpoint.update();
+        // Send back the pinpoint's position
+        return (pinpoint.getPosition());
+    }
 }

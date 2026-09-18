@@ -50,7 +50,7 @@ public class Hardware {
     // This is the forward/back distance of the Strafe (y) pod. + is forward of center, - is backward of center
     private static final double yOffset = 0;
     // Simple unit selection
-    DistanceUnit unit = DistanceUnit.MM;
+    DistanceUnit unit = DistanceUnit.METER;
 
     // CONSTRUCTOR
     public Hardware(HardwareMap map) {
@@ -96,12 +96,5 @@ public class Hardware {
         // pinpoint.setEncoderDirections();
         // For this it's crucial robot is not moving, or else the heading will drift
         pinpoint.resetPosAndIMU();
-    }
-
-    public Pose2D updatePinpoint() {
-        // Pinpoint logic
-        pinpoint.update();
-        // Returns a Pose2D with robot's position data
-        return (pinpoint.getPosition());
     }
 }

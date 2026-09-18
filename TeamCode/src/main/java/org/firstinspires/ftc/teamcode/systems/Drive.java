@@ -3,20 +3,35 @@ package org.firstinspires.ftc.teamcode.systems;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 
 public class Drive {
 
     // Declare hardware
     public Hardware hardware;
+    public Odometry odometry;
 
-    public Drive(Hardware hardware) {
+    public Drive(Hardware hardware, Odometry odometry) {
         // Define hardware
         this.hardware = hardware;
+        this.odometry = odometry;
     }
 
-    public void robotCentric(double y, double x, double rx) {
+    public void robotCentric(double forward, double strafe, double twist) {
+        // Mecanum drive here
+        mecanum(forward, strafe, twist);
+    }
 
+    public void fieldCentric(double forward, double strafe, double twist) {
+        // Get the heading of the robot
+        double heading = odometry.position().getHeading(AngleUnit.RADIANS);
+        // "rotate" forward and strafe values based on twist
+        double rotatedForward = strafe * Math.cos(-heading) - forward * Math.sin(-heading);
+        double rotatedStrafe = strafe * Math.sin(-heading) + forward * Math.cos(-heading);
+        // mecanum drive now
+        mecanum (rotatedForward, rotatedStrafe, twist);
     }
 
     public void mecanum(double forward, double strafe, double twist) {
