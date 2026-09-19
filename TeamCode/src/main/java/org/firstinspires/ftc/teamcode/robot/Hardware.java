@@ -69,6 +69,7 @@ public class Hardware {
 
         // Define intake motor
         intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         // Define GoBuilda Pinpoint

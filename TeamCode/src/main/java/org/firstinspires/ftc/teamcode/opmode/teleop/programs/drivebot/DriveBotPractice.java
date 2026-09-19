@@ -19,7 +19,7 @@ public class DriveBotPractice extends TeleOpEx {
         double strafe = drive_command.get(1);
         double twist = drive_command.get(2);
 
-        robot.drive.fieldCentric(forward, strafe, twist);
+        robot.drive.robotCentric(forward, strafe, twist);
 
         Pose2D position = robot.odometry.position();
 

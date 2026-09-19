@@ -14,7 +14,7 @@ public class Intake {
         // define intake motor
         intakeMotor = hardware.intakeMotor;
         // adjust intake direction
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
     }
 
     public void intake() {

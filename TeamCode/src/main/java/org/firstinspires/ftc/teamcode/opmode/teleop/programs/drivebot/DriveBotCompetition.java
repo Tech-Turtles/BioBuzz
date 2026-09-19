@@ -20,10 +20,11 @@ public class DriveBotCompetition extends TeleOpEx {
         double strafe = drive_command.get(1);
         double twist = drive_command.get(2);
 
-        robot.drive.robotCentric(forward, strafe, twist);
+        robot.drive.fieldCentric(forward, strafe, twist);
     }
 
     @Override
+
     public void endgame_loop() {
         super.endgame_loop();
         teleop_loop();
