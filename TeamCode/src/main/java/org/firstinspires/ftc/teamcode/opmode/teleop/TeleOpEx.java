@@ -1,8 +1,12 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop;
 
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TeleOpEx extends OpModeEx {
     // setup match timer
@@ -107,7 +111,11 @@ public class TeleOpEx extends OpModeEx {
     }
 
     public void endgame() {
-        // guess what? do nothing
+        // we can rumble the controllers here
+        List<Gamepad> gamepads = new ArrayList<>();
+        gamepads.add(input.gamepad1);
+        gamepads.add(input.gamepad2);
+        input.rumble(gamepads, 1000);
     }
 
     public void endgame_loop() {
