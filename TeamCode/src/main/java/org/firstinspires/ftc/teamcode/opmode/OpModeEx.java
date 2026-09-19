@@ -21,6 +21,9 @@ public class OpModeEx extends OpMode {
     public DistanceUnit unit = DistanceUnit.MM;
     public AngleUnit angleUnit = AngleUnit.RADIANS;
 
+    // var for storing odometry to avoid having to call robot.odometry.getPosition() multiple times
+    Pose2D position;
+
     // declare start pose
     public Pose2D setStart() {
         Pose2D start = new Pose2D(unit, 0, 0, angleUnit, 0);
@@ -45,6 +48,7 @@ public class OpModeEx extends OpMode {
 
     @Override
     public void loop() {
-
+        // Define position
+        position = robot.odometry.position();
     }
 }

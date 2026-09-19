@@ -32,6 +32,7 @@ public class TeleOpEx extends OpModeEx {
 
     @Override
     public void start() {
+        super.start();
         // Now that match is starting, reset the timer
         timer.reset();
         // We are in the teleop section of the match
@@ -42,6 +43,7 @@ public class TeleOpEx extends OpModeEx {
 
     @Override
     public void loop() {
+        super.loop();
         // Big state machine
         switch (matchState) {
             case TELEOP:
@@ -67,7 +69,7 @@ public class TeleOpEx extends OpModeEx {
                     matchState = MatchState.OVER;
                     over();
                 }
-                // almost forgot! this is very important
+                // this is very important
                 break;
 
             case OVER:
@@ -81,7 +83,13 @@ public class TeleOpEx extends OpModeEx {
                 // now break code
                 break;
         }
-
+        // Just in case robot program needs to be restarted during match, immediately set to endgame
+        boolean endgameForGamepad1 = (input.gamepad1.left_stick_button && input.gamepad2.right_stick_button);
+        boolean endgameForGamepad2 = (input.gamepad2.left_stick_button && input.gamepad2.right_stick_button);
+        // If either or, the state is endgame
+        if (endgameForGamepad1 || endgameForGamepad2) {
+            matchState = MatchState.ENDGAME;
+        }
     }
 
     // The below methods are meant to be overridden by
