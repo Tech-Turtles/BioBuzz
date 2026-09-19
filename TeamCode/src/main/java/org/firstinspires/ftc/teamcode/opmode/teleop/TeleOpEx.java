@@ -89,6 +89,8 @@ public class TeleOpEx extends OpModeEx {
         // If either or, the state is endgame
         if (endgameForGamepad1 || endgameForGamepad2) {
             matchState = MatchState.ENDGAME;
+            // call endgame setup method
+            endgame();
         }
     }
 
