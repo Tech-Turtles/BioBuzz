@@ -47,4 +47,11 @@ public class Drive {
         hardware.rearLeftDrive.setPower(rl / scale);
         hardware.rearRightDrive.setPower(rr / scale);
     }
+
+    public void brake() {
+        hardware.frontLeftDrive.setPower(0);
+        hardware.frontRightDrive.setPower(0);
+        hardware.rearLeftDrive.setPower(0);
+        hardware.rearRightDrive.setPower(0);
+    }
 }

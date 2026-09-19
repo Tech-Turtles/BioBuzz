@@ -76,6 +76,9 @@ public class TeleOpEx extends OpModeEx {
                 // put in a game over loop, but this is here
                 // if anyone wants. Versatility is key.
                 over_loop();
+                // brake robot just in case
+                robot.drive.brake();
+                // now break code
                 break;
         }
 
