@@ -102,6 +102,10 @@ public class TeleOpEx extends OpModeEx {
             // call endgame setup method
             endgame();
         }
+
+        if (input.gamepad1.left_bumper) {
+            robot.odometry.pinpoint.resetPosAndIMU();
+        }
     }
 
     // The below methods are meant to be overridden by

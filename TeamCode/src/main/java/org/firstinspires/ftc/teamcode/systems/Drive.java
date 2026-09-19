@@ -37,8 +37,9 @@ public class Drive {
         double heading = odometry.position().getHeading(AngleUnit.RADIANS);
         // "rotate" forward and strafe values based on twist
         // heading is from pinpoint.getHeading(AngleUnit.RADIANS)
-        double rotatedForward = forward * Math.cos(heading) - strafe * Math.sin(heading);
+        double rotatedForward = forward * Math.cos(heading) + strafe * Math.sin(heading);
         double rotatedStrafe = forward * Math.sin(heading) + strafe * Math.cos(heading);
+
         // mecanum drive now
         mecanum(rotatedForward, rotatedStrafe, twist);
     }

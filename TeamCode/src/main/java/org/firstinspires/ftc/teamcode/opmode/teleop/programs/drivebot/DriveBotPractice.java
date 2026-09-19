@@ -2,6 +2,9 @@ package org.firstinspires.ftc.teamcode.opmode.teleop.programs.drivebot;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 
 import java.util.List;
@@ -16,6 +19,18 @@ public class DriveBotPractice extends TeleOpEx {
         double strafe = drive_command.get(1);
         double twist = drive_command.get(2);
 
-        robot.drive.robotCentric(forward, strafe, twist);
+        robot.drive.fieldCentric(forward, strafe, twist);
+
+        Pose2D position = robot.odometry.position();
+
+
+        double heading = (double) Math.round(position.getHeading(AngleUnit.RADIANS) * 100) / 100;
+        double x = Math.round(position.getX(DistanceUnit.MM));
+        double y = Math.round(position.getY(DistanceUnit.MM));
+
+        telemetry.addData("Heading", heading);
+        telemetry.addData("X", x);
+        telemetry.addData("Y", y);
+        telemetry.update();
     }
 }
