@@ -24,10 +24,10 @@ public class Drive {
         // Get the heading of the robot
         double heading = odometry.position().getHeading(AngleUnit.RADIANS);
         // "rotate" forward and strafe values based on twist
-        double rotatedForward = strafe * Math.cos(-heading) - forward * Math.sin(-heading);
-        double rotatedStrafe = strafe * Math.sin(-heading) + forward * Math.cos(-heading);
+        // heading is from pinpoint.getHeading(AngleUnit.RADIANS)
+        double rotatedForward = forward * Math.cos(heading) - strafe * Math.sin(heading);
+        double rotatedStrafe = forward * Math.sin(heading) + strafe * Math.cos(heading);
         // mecanum drive now
-
         mecanum(rotatedForward, rotatedStrafe, twist);
     }
 

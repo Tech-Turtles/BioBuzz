@@ -50,7 +50,7 @@ public class Hardware {
     // This is the forward/back distance of the Strafe (y) pod. + is forward of center, - is backward of center
     private static final double yOffset = 0;
     // Simple unit selection
-    DistanceUnit unit = DistanceUnit.METER;
+    DistanceUnit unit = DistanceUnit.MM;
 
     // CONSTRUCTOR
     public Hardware(HardwareMap map) {
