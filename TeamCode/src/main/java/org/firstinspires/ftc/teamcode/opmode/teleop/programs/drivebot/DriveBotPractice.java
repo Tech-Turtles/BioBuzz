@@ -28,6 +28,14 @@ public class DriveBotPractice extends TeleOpEx {
         double x = Math.round(position.getX(DistanceUnit.MM));
         double y = Math.round(position.getY(DistanceUnit.MM));
 
+        if (input.getIntake(input.gamepad2)) {
+            robot.intake.intake();
+        } else if (input.getOuttake(input.gamepad2)) {
+            robot.intake.outtake();
+        } else {
+            robot.intake.stop();
+        }
+
         telemetry.addData("Heading", heading);
         telemetry.addData("X", x);
         telemetry.addData("Y", y);

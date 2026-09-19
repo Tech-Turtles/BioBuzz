@@ -39,6 +39,14 @@ public class Input {
         return (drive);
     }
 
+    public boolean getIntake(Gamepad intakepad) {
+        return (intakepad.left_trigger_pressed);
+    }
+
+    public boolean getOuttake(Gamepad outtakepad) {
+        return (outtakepad.left_bumper);
+    }
+
     public void rumble(List<Gamepad> gamepads, double duration) {
         // Loop to go through for each gamepad and rumble it
         for (Gamepad gamepad : gamepads) {

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.systems.Drive;
+import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
 
 public class Robot {
@@ -13,11 +14,14 @@ public class Robot {
     // system variable declarations
     public Drive drive;
     public Odometry odometry;
+
+    public Intake intake;
     public Robot(HardwareMap map, Pose2D start) {
         // robot variable definitions
         hardware = new Hardware(map);
         // system variable declarations
         odometry = new Odometry(hardware, start);
         drive = new Drive(hardware, odometry);
+        intake = new Intake(hardware);
     }
 }

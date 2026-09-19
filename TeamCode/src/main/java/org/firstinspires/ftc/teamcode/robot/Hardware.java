@@ -21,6 +21,10 @@ public class Hardware {
     // HARDWARE DECLARATIONS
     // Declare drive motors
     public DcMotorEx frontLeftDrive, frontRightDrive, rearLeftDrive, rearRightDrive;
+
+    // declare intake motor
+    public DcMotorEx intakeMotor;
+
     // Declare IMU
     public IMU imu;
     // Declare pinpoint
@@ -32,6 +36,10 @@ public class Hardware {
     private static final String frontRightDriveName = "frontRightDrive";
     private static final String rearLeftDriveName = "rearLeftDrive";
     private static final String rearRightDriveName = "rearRightDrive";
+
+    // Intake motor
+
+    private static final String intakeMotorName = "intakeMotor";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -58,6 +66,9 @@ public class Hardware {
         frontRightDrive = map.get(DcMotorEx.class, Hardware.frontRightDriveName);
         rearLeftDrive = map.get(DcMotorEx.class, Hardware.rearLeftDriveName);
         rearRightDrive = map.get(DcMotorEx.class, Hardware.rearRightDriveName);
+
+        // Define intake motor
+        intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
 
 
         // Define GoBuilda Pinpoint
