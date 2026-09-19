@@ -32,6 +32,9 @@ public class TeleOpEx extends OpModeEx {
         super.init();
         // Initialize match timer
         timer = new ElapsedTime();
+        // speak to user
+        telemetry.addLine("Initialized!");
+        telemetry.update();
     }
 
     @Override
@@ -41,6 +44,9 @@ public class TeleOpEx extends OpModeEx {
         timer.reset();
         // We are in the teleop section of the match
         matchState = MatchState.TELEOP;
+        // speak to user
+        telemetry.addLine("Started!");
+        telemetry.update();
         // Run the teleop init code
         teleop();
     }
