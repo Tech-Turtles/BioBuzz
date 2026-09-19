@@ -14,6 +14,7 @@ public class AutonomousEx extends OpModeEx {
 
     @Override
     public void start() {
+        // parent start
         super.start();
     }
 

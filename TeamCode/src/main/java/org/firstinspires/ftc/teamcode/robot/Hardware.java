@@ -33,9 +33,6 @@ public class Hardware {
     private static final String rearLeftDriveName = "rearLeftDrive";
     private static final String rearRightDriveName = "rearRightDrive";
 
-    // Define IMU name
-    private static final String imuName = "IMU";
-
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
 
@@ -62,8 +59,6 @@ public class Hardware {
         rearLeftDrive = map.get(DcMotorEx.class, Hardware.rearLeftDriveName);
         rearRightDrive = map.get(DcMotorEx.class, Hardware.rearRightDriveName);
 
-        // Define IMU
-        imu = map.get(IMU.class, Hardware.imuName);
 
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
@@ -85,9 +80,6 @@ public class Hardware {
         frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        // Init IMU based on direction on robot placement
-        imu.initialize(Hardware.imuPositioning);
 
         // Init the pinpoint
         pinpoint.setOffsets(xOffset, yOffset, unit);

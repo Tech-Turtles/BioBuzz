@@ -23,8 +23,8 @@ public class Drive {
 
         // setup speed multipliers
         speeds.forward = 1.0;
-        speeds.strafe = 1.2;
-        speeds.twist = 0.5;
+        speeds.strafe = 1.0;
+        speeds.twist = 1.0;
     }
 
     public void robotCentric(double forward, double strafe, double twist) {

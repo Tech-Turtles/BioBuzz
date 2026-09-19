@@ -11,6 +11,9 @@ public class Input {
     public Gamepad gamepad1;
     public Gamepad gamepad2;
 
+    // define speed modifier
+    public double speedModifier = 1;
+
     public Input(Gamepad gamepad1, Gamepad gamepad2) {
         // Assign gamepads
         this.gamepad1 = gamepad1;
@@ -18,10 +21,15 @@ public class Input {
     }
 
     public List<Double> getDrive(Gamepad drivepad) {
+        if (drivepad.right_trigger_pressed) {
+            speedModifier = 0.25;
+        } else {
+            speedModifier = 1;
+        }
         // Get drive values from the gamepad decidedly used for driving
-        double forward = -drivepad.left_stick_y;
-        double strafe = drivepad.left_stick_x;
-        double twist = drivepad.right_stick_x;
+        double forward = drivepad.left_stick_y * speedModifier;
+        double strafe = drivepad.left_stick_x * speedModifier;
+        double twist = -drivepad.right_stick_x * speedModifier;
         // Create list to store these drive values
         List<Double> drive = new ArrayList<>();
         drive.add(forward);
