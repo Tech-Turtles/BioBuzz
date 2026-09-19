@@ -94,7 +94,7 @@ public class TeleOpEx extends OpModeEx {
                 break;
         }
         // Just in case robot program needs to be restarted during match, immediately set to endgame
-        boolean endgameForGamepad1 = (input.gamepad1.left_stick_button && input.gamepad2.right_stick_button);
+        boolean endgameForGamepad1 = (input.gamepad1.left_stick_button && input.gamepad1.right_stick_button);
         boolean endgameForGamepad2 = (input.gamepad2.left_stick_button && input.gamepad2.right_stick_button);
         // If either or, the state is endgame
         if (endgameForGamepad1 || endgameForGamepad2) {
