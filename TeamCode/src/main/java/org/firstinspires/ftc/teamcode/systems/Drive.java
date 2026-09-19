@@ -9,10 +9,22 @@ public class Drive {
     public Hardware hardware;
     public Odometry odometry;
 
+    public static class DriveSpeeds {
+        double forward, strafe, twist;
+    }
+
+    // set speed modifiers
+    public Drive.DriveSpeeds speeds = new Drive.DriveSpeeds();
+
     public Drive(Hardware hardware, Odometry odometry) {
         // Define hardware
         this.hardware = hardware;
         this.odometry = odometry;
+
+        // setup speed multipliers
+        speeds.forward = 1.0;
+        speeds.strafe = 1.2;
+        speeds.twist = 0.5;
     }
 
     public void robotCentric(double forward, double strafe, double twist) {
