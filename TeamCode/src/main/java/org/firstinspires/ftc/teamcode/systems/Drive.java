@@ -24,7 +24,7 @@ public class Drive {
         // setup speed multipliers
         speeds.forward = 1.0;
         speeds.strafe = 1.2;
-        speeds.twist = 1.0;
+        speeds.twist = 0.1;
     }
 
     public void robotCentric(double forward, double strafe, double twist) {
@@ -37,8 +37,8 @@ public class Drive {
         double heading = odometry.position().getHeading(AngleUnit.RADIANS);
         // "rotate" forward and strafe values based on twist
         // heading is from pinpoint.getHeading(AngleUnit.RADIANS)
-        double rotatedForward = forward * Math.cos(-heading) - strafe * Math.sin(-heading);
-        double rotatedStrafe = forward * Math.sin(-heading) + strafe * Math.cos(-heading);
+        double rotatedForward = forward * Math.cos(heading) - strafe * Math.sin(heading);
+        double rotatedStrafe = forward * Math.sin(heading) + strafe * Math.cos(heading);
 
         // mecanum drive now
         mecanum(rotatedForward, rotatedStrafe, twist);

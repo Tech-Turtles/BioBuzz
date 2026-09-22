@@ -1,10 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
-import com.qualcomm.robotcore.util.ElapsedTime;
-
 import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 
-public class AutonomousEx extends OpModeEx {
+public class Autonomous extends OpModeEx {
 
     @Override
     public void init() {

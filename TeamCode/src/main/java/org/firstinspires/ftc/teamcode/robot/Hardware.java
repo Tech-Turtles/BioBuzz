@@ -52,9 +52,9 @@ public class Hardware {
     // Configurations of pinpoint
     // This is the sideways distance of the Forward (x) pod. + is left of center, - is right of center
     private static final double xOffset = 69.85;
-    // This is the forward/back distance of the Strafe (y) pod. + is forward of center, - is backward of center
+        // This is the forward/back distance of the Strafe (y) pod. + is forward of center, - is backward of center
     private static final double yOffset = -142.875;
-    // Simple unit selection
+        // Simple unit selection
     DistanceUnit unit = DistanceUnit.MM;
 
     // CONSTRUCTOR

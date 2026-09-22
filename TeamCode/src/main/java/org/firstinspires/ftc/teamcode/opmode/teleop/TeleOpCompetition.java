@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeleOpEx extends OpModeEx {
+public class TeleOpCompetition extends OpModeEx {
     // setup match timer
     public ElapsedTime timer;
 
@@ -73,23 +73,19 @@ public class TeleOpEx extends OpModeEx {
                 // Set up time
                 time = timer.seconds();
                 // Run the endgame loop
-                endgame_loop();
+                loop();
                 // now update the state machine
                 if (time >= (teleopTime + endgameTime)) {
                     matchState = MatchState.OVER;
+                    over();
                     over();
                 }
                 // this is very important
                 break;
 
             case OVER:
-                // We don't need to worry about time here
-                // I really have no idea what someone would
-                // put in a game over loop, but this is here
-                // if anyone wants. Versatility is key.
+                // run the over loop now
                 over_loop();
-                // brake robot just in case
-                robot.drive.brake();
                 // now break code
                 break;
         }
@@ -103,8 +99,10 @@ public class TeleOpEx extends OpModeEx {
             endgame();
         }
 
-        if (input.gamepad1.left_bumper) {
+        if (input.gamepad1.dpadUpWasPressed()) {
             robot.odometry.pinpoint.resetPosAndIMU();
+            telemetry.addLine("Pinpoint reset!");
+            telemetry.update();
         }
     }
 
@@ -117,7 +115,7 @@ public class TeleOpEx extends OpModeEx {
     }
 
     public void teleop_loop() {
-        // currently, do nothing
+        //
     }
 
     public void endgame() {
@@ -129,7 +127,7 @@ public class TeleOpEx extends OpModeEx {
     }
 
     public void endgame_loop() {
-        // currently, do nothing
+        //
     }
 
     public void over() {
@@ -137,6 +135,6 @@ public class TeleOpEx extends OpModeEx {
     }
 
     public void over_loop() {
-        // you guessed it: do nothing
+        // do nothing
     }
 }
