@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpCompetition;
+import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 
 import java.util.List;
 
 @TeleOp(name = "DriveBot Competition", group = "DriveBot")
-public class DriveBotCompetition extends TeleOpCompetition {
+public class DriveBotCompetition extends TeleOpEx {
 
     // drive robot in teleop
     @Override
@@ -24,8 +24,6 @@ public class DriveBotCompetition extends TeleOpCompetition {
         double twist = drive_command.get(2);
 
         robot.drive.fieldCentric(forward, strafe, twist);
-
-        Pose2D position = robot.odometry.position();
 
 
         double heading = (double) Math.round(position.getHeading(AngleUnit.RADIANS) * 100) / 100;

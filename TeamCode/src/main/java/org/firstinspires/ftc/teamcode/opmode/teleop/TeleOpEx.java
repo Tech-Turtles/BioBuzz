@@ -8,7 +8,7 @@ import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeleOpCompetition extends OpModeEx {
+public class TeleOpEx extends OpModeEx {
     // setup match timer
     public ElapsedTime timer;
 
@@ -73,11 +73,10 @@ public class TeleOpCompetition extends OpModeEx {
                 // Set up time
                 time = timer.seconds();
                 // Run the endgame loop
-                loop();
+                endgame_loop();
                 // now update the state machine
                 if (time >= (teleopTime + endgameTime)) {
                     matchState = MatchState.OVER;
-                    over();
                     over();
                 }
                 // this is very important

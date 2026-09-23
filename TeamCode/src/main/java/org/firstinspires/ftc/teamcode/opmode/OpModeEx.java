@@ -18,7 +18,7 @@ public class OpModeEx extends OpMode {
     public Input input;
 
     // var for storing odometry to avoid having to call robot.odometry.getPosition() multiple times
-    Pose2D position;
+    public Pose2D position;
 
     // declare start pose
     public Pose2D setStart() {

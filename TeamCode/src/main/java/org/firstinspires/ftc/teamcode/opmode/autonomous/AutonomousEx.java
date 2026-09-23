@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
 import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 
-public class Autonomous extends OpModeEx {
+public class AutonomousEx extends OpModeEx {
 
     @Override
     public void init() {

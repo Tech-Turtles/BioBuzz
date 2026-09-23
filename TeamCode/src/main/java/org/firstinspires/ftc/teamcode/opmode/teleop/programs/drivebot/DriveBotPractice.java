@@ -5,12 +5,12 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpCompetition;
+import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 
 import java.util.List;
 
 @TeleOp(name = "DriveBot Practice", group = "DriveBot")
-public class DriveBotPractice extends TeleOpCompetition {
+public class DriveBotPractice extends TeleOpEx {
     @Override
     public  void loop() {
         List<Double> drive_command = input.getDrive(input.gamepad1);
