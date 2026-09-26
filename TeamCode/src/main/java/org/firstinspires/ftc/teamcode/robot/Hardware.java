@@ -25,6 +25,10 @@ public class Hardware {
     // declare intake motor
     public DcMotorEx intakeMotor;
 
+    // declare shoot motor
+    public DcMotorEx shootMotor;
+    public DcMotorSimple.Direction shootMotorDirection;
+
     // Declare IMU
     public IMU imu;
     // Declare pinpoint
@@ -41,8 +45,15 @@ public class Hardware {
 
     private static final String intakeMotorName = "intakeMotor";
 
+    // Shooting motor
+    private static final String shootMotorName = "shootMotor";
+
+
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
+
+    // IMU name
+    public static final String imuName = "imu";
 
     // Positioning of IMU
     private static final RevHubOrientationOnRobot.LogoFacingDirection imuLogoDirection = RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
@@ -71,9 +82,17 @@ public class Hardware {
         intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Define shoot motor
+        shootMotor = map.get(DcMotorEx.class, Hardware.shootMotorName);
+        shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        // Reverse the shoot motor, if necessary
+        shootMotor.setDirection(shootMotorDirection);
 
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
+
+        // get IMU
+        imu = map.get(IMU.class, Hardware.imuName);
 
         // HARDWARE CONFIGURATIONS
 
@@ -93,6 +112,7 @@ public class Hardware {
         rearLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+
         // Init the pinpoint
         pinpoint.setOffsets(xOffset, yOffset, unit);
         pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
@@ -100,5 +120,8 @@ public class Hardware {
         pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
         // For this it's crucial robot is not moving, or else the heading will drift
         pinpoint.resetPosAndIMU();
+
+        // Setup IMU positioning
+        imu.initialize(imuPositioning);
     }
 }
