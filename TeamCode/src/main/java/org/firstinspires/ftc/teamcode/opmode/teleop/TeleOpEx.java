@@ -94,6 +94,7 @@ public class TeleOpEx extends OpModeEx {
         // If either or, the state is endgame
         if (endgameForGamepad1 || endgameForGamepad2) {
             matchState = MatchState.ENDGAME;
+            timer.reset();
             // call endgame setup method
             endgame();
         }
@@ -134,6 +135,6 @@ public class TeleOpEx extends OpModeEx {
     }
 
     public void over_loop() {
-        // do nothing
+        robot.stopAll();
     }
 }

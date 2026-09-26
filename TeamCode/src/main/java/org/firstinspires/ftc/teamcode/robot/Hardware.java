@@ -82,11 +82,13 @@ public class Hardware {
         intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        /*
         // Define shoot motor
         shootMotor = map.get(DcMotorEx.class, Hardware.shootMotorName);
         shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         // Reverse the shoot motor, if necessary
         shootMotor.setDirection(shootMotorDirection);
+         */
 
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);

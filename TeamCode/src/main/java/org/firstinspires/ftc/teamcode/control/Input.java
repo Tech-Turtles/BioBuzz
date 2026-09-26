@@ -47,8 +47,8 @@ public class Input {
         return (outtakepad.left_bumper);
     }
 
-    public boolean getShooter(Gamepad shooterpad) {
-        return (shooterpad.right_trigger_pressed);
+    public double getShoot(Gamepad shooterpad) {
+        return (shooterpad.right_trigger);
     }
 
     public void rumble(List<Gamepad> gamepads, double duration) {

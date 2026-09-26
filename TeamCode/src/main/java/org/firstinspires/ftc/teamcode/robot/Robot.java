@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.systems.Drive;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
+import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 public class Robot {
     // robot variable declarations
@@ -16,6 +17,8 @@ public class Robot {
     public Odometry odometry;
 
     public Intake intake;
+    public Shooter shooter;
+
     public Robot(HardwareMap map, Pose2D start) {
         // robot variable definitions
         hardware = new Hardware(map);
@@ -23,5 +26,11 @@ public class Robot {
         odometry = new Odometry(hardware, start);
         drive = new Drive(hardware, odometry);
         intake = new Intake(hardware);
+        shooter = new Shooter(hardware);
+    }
+
+    public void stopAll() {
+        drive.brake();
+        intake.stop();
     }
 }

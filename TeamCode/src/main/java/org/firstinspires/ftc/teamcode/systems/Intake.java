@@ -8,7 +8,8 @@ import org.firstinspires.ftc.teamcode.robot.Hardware;
 public class Intake {
 
     public DcMotorEx intakeMotor;
-    public double speedModifier = 1.0;
+    public double speed = 1.0;
+    public double idleSpeed = 0.1;
 
     public Intake(Hardware hardware) {
         // define intake motor
@@ -18,11 +19,15 @@ public class Intake {
     }
 
     public void intake() {
-        intakeMotor.setPower(speedModifier);
+        intakeMotor.setPower(speed);
     }
 
     public void outtake() {
-        intakeMotor.setPower(-speedModifier);
+        intakeMotor.setPower(-speed);
+    }
+
+    public void idle() {
+        intakeMotor.setPower(idleSpeed);
     }
 
     public void stop() {

@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.opmode.teleop.programs.drivebot;
+package org.firstinspires.ftc.teamcode.opmode.teleop.programs.driveBot;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -23,6 +23,14 @@ public class DriveBot extends TeleOpEx {
         double twist = drive_command.get(2);
 
         robot.drive.robotCentric(forward, strafe, twist);
+
+        if (input.getIntake(input.gamepad1)) {
+            robot.intake.intake();
+        } else if (input.getOuttake(input.gamepad1)) {
+            robot.intake.outtake();
+        } else {
+            robot.intake.idle();
+        }
 
 
         double heading = (double) Math.round(position.getHeading(AngleUnit.DEGREES) * 10) / 10;

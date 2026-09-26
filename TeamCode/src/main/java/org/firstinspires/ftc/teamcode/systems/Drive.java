@@ -25,7 +25,7 @@ public class Drive {
         // setup speed multipliers
         speeds.forward = 1.0;
         speeds.strafe = 1.2;
-        speeds.twist = 0.1;
+        speeds.twist = 1.4;
     }
 
     public void robotCentric(double forward, double strafe, double twist) {
@@ -48,8 +48,8 @@ public class Drive {
     public void mecanum(double forward, double strafe, double twist) {
         // Get the raw power for each wheel
         double fl = 1.00 * (forward + strafe + twist);
-        double fr = 0.95 * (forward - strafe - twist);
-        double rl = 0.95 * (forward - strafe + twist);
+        double fr = 1.00 * (forward - strafe - twist);
+        double rl = 1.00 * (forward - strafe + twist);
         double rr = 1.00 * (forward + strafe - twist);
 
         // Get the scale factor
