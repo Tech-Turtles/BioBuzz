@@ -47,6 +47,10 @@ public class Input {
         return (outtakepad.left_bumper);
     }
 
+    public boolean getShooter(Gamepad shooterpad) {
+        return (shooterpad.right_trigger_pressed);
+    }
+
     public void rumble(List<Gamepad> gamepads, double duration) {
         // Loop to go through for each gamepad and rumble it
         for (Gamepad gamepad : gamepads) {
