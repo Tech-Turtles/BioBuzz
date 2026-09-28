@@ -39,8 +39,8 @@ public class Input {
         return (drive);
     }
 
-    public boolean getIntake(Gamepad intakepad) {
-        return (intakepad.left_trigger_pressed);
+    public double getIntake(Gamepad intakepad) {
+        return ((double) Math.abs(intakepad.left_stick_y));
     }
 
     public boolean getOuttake(Gamepad outtakepad) {
