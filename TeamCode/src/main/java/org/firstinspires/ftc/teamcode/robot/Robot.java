@@ -6,7 +6,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.systems.Drive;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
-import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 public class Robot {
     // robot variable declarations
@@ -15,22 +14,29 @@ public class Robot {
     // system variable declarations
     public Drive drive;
     public Odometry odometry;
-
     public Intake intake;
-    public Shooter shooter;
+
+    // declare Pose2D for start
+    public Pose2D start;
 
     public Robot(HardwareMap map, Pose2D start) {
+        // define start
+        this.start = start;
+
         // robot variable definitions
-        hardware = new Hardware(map);
+        this.hardware = new Hardware(map);
         // system variable declarations
-        odometry = new Odometry(hardware, start);
-        drive = new Drive(hardware, odometry);
-        intake = new Intake(hardware);
-        shooter = new Shooter(hardware);
+        this.odometry = new Odometry(this);
+        this.drive = new Drive(this);
+        this.intake = new Intake(this);
     }
 
+    /**
+     * @author Brantley
+     * Stops the wheels and the intake. To be run repeatedly.
+     */
     public void stopAll() {
-        drive.brake();
+        drive.stop();
         intake.stop();
     }
 }

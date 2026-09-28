@@ -27,9 +27,6 @@ public class TestOpMode extends OpModeEx {
         telemetry.addLine("Are you ready to rumble?");
         telemetry.update();
         // Now rumble the gamepads
-        List<Gamepad> gamepads = new ArrayList<>();
-        gamepads.add(input.gamepad1);
-        gamepads.add(input.gamepad2);
-        input.rumble(gamepads, 1000);
+        output.rumbleAll(1000);
     }
 }

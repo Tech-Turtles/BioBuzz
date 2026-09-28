@@ -25,10 +25,6 @@ public class Hardware {
     // declare intake motor
     public DcMotorEx intakeMotor;
 
-    // declare shoot motor
-    public DcMotorEx shootMotor;
-    public DcMotorSimple.Direction shootMotorDirection;
-
     // Declare IMU
     public IMU imu;
     // Declare pinpoint
@@ -45,10 +41,6 @@ public class Hardware {
 
     private static final String intakeMotorName = "intakeMotor";
 
-    // Shooting motor
-    private static final String shootMotorName = "shootMotor";
-
-
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
 
@@ -56,7 +48,7 @@ public class Hardware {
     public static final String imuName = "imu";
 
     // Positioning of IMU
-    private static final RevHubOrientationOnRobot.LogoFacingDirection imuLogoDirection = RevHubOrientationOnRobot.LogoFacingDirection.LEFT;
+    private static final RevHubOrientationOnRobot.LogoFacingDirection imuLogoDirection = RevHubOrientationOnRobot.LogoFacingDirection.BACKWARD;
     private static final RevHubOrientationOnRobot.UsbFacingDirection imuUsbDirection = RevHubOrientationOnRobot.UsbFacingDirection.UP;
     private static final IMU.Parameters imuPositioning = new IMU.Parameters(new RevHubOrientationOnRobot(imuLogoDirection, imuUsbDirection));
 
@@ -82,14 +74,6 @@ public class Hardware {
         intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        /*
-        // Define shoot motor
-        shootMotor = map.get(DcMotorEx.class, Hardware.shootMotorName);
-        shootMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        // Reverse the shoot motor, if necessary
-        shootMotor.setDirection(shootMotorDirection);
-         */
-
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
 
@@ -114,6 +98,8 @@ public class Hardware {
         rearLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Setup intake motor
+        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Init the pinpoint
         pinpoint.setOffsets(xOffset, yOffset, unit);

@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.teamcode.utility;
+package org.firstinspires.ftc.teamcode.unused.utility;
 
-import static org.firstinspires.ftc.teamcode.utility.ListMath.average;
+import static org.firstinspires.ftc.teamcode.unused.utility.ListMath.average;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 

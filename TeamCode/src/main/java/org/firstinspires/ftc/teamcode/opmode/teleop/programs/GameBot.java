@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.programs;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.canvas.Canvas;
+import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -8,45 +11,72 @@ import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 
 import java.util.List;
 
-@TeleOp(name = "DriveBot", group = "DriveBot")
-public class DriveBot extends TeleOpEx {
+@TeleOp(name = "GameBot", group = "Bot")
+public class GameBot extends TeleOpEx {
 
     // drive robot in teleop
     @Override
     public void teleop_loop() {
+        // run parent logic
         super.teleop_loop();
 
-        List<Double> drive_command = input.getDrive(input.gamepad1);
-
-        double forward = drive_command.get(0);
-        double strafe = drive_command.get(1);
-        double twist = drive_command.get(2);
-
+        // get list for driving
+        List<Double> driveCommand = input.getDrive(input.gamepad1);
+        // assign values from list
+        double forward = driveCommand.get(0);
+        double strafe = driveCommand.get(1);
+        double twist = driveCommand.get(2);
+        // now drive robot centric
         robot.drive.robotCentric(forward, strafe, twist);
 
-        // get intake that is abs of left stick x
+        // passively intake based on drive commands
         robot.intake.intake(input.getIntakeIdle(input.gamepad1));
-
+        // now actively intake from driver 2
+        double intakeCommand = input.getIntake(input.gamepad2);
         // outtake
-        if (input.getOuttake(input.gamepad1)) {
-            robot.intake.outtake();
+        if (intakeCommand > 0) {
+            robot.intake.intake(intakeCommand);
+        } else if (intakeCommand < 0) {
+            robot.intake.outtake(intakeCommand);
         }
 
-
-        double heading = (double) Math.round(position.getHeading(AngleUnit.DEGREES) * 10) / 10;
-        double x = Math.round(position.getX(DistanceUnit.MM));
-        double y = Math.round(position.getY(DistanceUnit.MM));
-
-        telemetry.addData("Heading", heading);
-        telemetry.addData("X", x);
-        telemetry.addData("Y", y);
-        telemetry.update();
+        // update dashboard
+        dashboard();
     }
 
     @Override
-
     public void endgame_loop() {
         super.endgame_loop();
         teleop_loop();
+    }
+
+    public void dashboard() {
+        // create the stuff
+        TelemetryPacket packet = new TelemetryPacket();
+        Canvas fieldOverlay = packet.fieldOverlay();
+
+        // get the odometry data
+        double x = position.getX(DistanceUnit.INCH);
+        double y = position.getY(DistanceUnit.INCH);
+        double heading = position.getHeading(AngleUnit.RADIANS);
+
+        // get arrow x and y
+        double robotRadius = 9;
+        double arrowX = x + robotRadius * Math.cos(heading);
+        double arrowY = y + robotRadius * Math.sin(heading);
+
+        // draw the robot's vector on the field
+        fieldOverlay.setStrokeWidth(1);
+        fieldOverlay.setStroke("#3F51B5");
+        fieldOverlay.strokeCircle(x, y, robotRadius);
+        fieldOverlay.strokeLine(x, y, arrowX, arrowY);
+
+        // numerical telemetry
+        packet.put("x (mm)", x);
+        packet.put("y (mm)", y);
+        packet.put("heading (deg)", Math.toDegrees(heading));
+
+        // send the telemetry packet
+        dashboard.sendTelemetryPacket(packet);
     }
 }

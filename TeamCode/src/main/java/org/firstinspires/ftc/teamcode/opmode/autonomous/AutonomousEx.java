@@ -27,7 +27,7 @@ public class AutonomousEx extends OpModeEx {
     public void stop() {
         super.stop();
         // Stop motors
-        robot.drive.brake();
+        robot.drive.stop();
     }
 
     public void stateMachine() {

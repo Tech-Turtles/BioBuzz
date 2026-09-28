@@ -19,11 +19,14 @@ public class TeleOpEx extends OpModeEx {
         OVER
     }
 
+    // Define match state machine
     public MatchState matchState;
 
-    protected double teleopTime = 60;
-    protected double endgameTime = 60;
+    // Times for each game stage
+    protected final double teleopTime = 60;
+    protected final double endgameTime = 60;
 
+    // the time the match has been running
     protected double time = 0;
 
     @Override
@@ -39,6 +42,7 @@ public class TeleOpEx extends OpModeEx {
 
     @Override
     public void start() {
+        // run parent code
         super.start();
         // Now that match is starting, reset the timer
         timer.reset();
@@ -53,6 +57,7 @@ public class TeleOpEx extends OpModeEx {
 
     @Override
     public void loop() {
+        // run parent code
         super.loop();
         // Big state machine
         switch (matchState) {
@@ -89,17 +94,16 @@ public class TeleOpEx extends OpModeEx {
                 break;
         }
         // Just in case robot program needs to be restarted during match, immediately set to endgame
-        boolean endgameForGamepad1 = (input.gamepad1.left_stick_button && input.gamepad1.right_stick_button);
-        boolean endgameForGamepad2 = (input.gamepad2.left_stick_button && input.gamepad2.right_stick_button);
-        // If either or, the state is endgame
-        if (endgameForGamepad1 || endgameForGamepad2) {
+        if (input.getEndgame()) {
+            // set the match state to endgame
             matchState = MatchState.ENDGAME;
+            // reset the timer
             timer.reset();
             // call endgame setup method
             endgame();
         }
 
-        if (input.gamepad1.dpadUpWasPressed()) {
+        if (input.getResetPinpoint(gamepad1)) {
             robot.odometry.pinpoint.resetPosAndIMU();
             telemetry.addLine("Pinpoint reset!");
             telemetry.update();
@@ -120,10 +124,7 @@ public class TeleOpEx extends OpModeEx {
 
     public void endgame() {
         // we can rumble the controllers here
-        List<Gamepad> gamepads = new ArrayList<>();
-        gamepads.add(input.gamepad1);
-        gamepads.add(input.gamepad2);
-        input.rumble(gamepads, 1000);
+        output.rumbleAll(1000);
     }
 
     public void endgame_loop() {
