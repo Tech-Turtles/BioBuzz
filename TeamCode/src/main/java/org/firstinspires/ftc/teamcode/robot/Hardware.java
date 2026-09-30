@@ -22,8 +22,8 @@ public class Hardware {
     // Declare drive motors
     public DcMotorEx frontLeftDrive, frontRightDrive, rearLeftDrive, rearRightDrive;
 
-    // declare intake motor
-    public DcMotorEx intakeMotor;
+    // declare system motors
+    public DcMotorEx intakeMotor, shooterMotor;
 
     // Declare IMU
     public IMU imu;
@@ -40,6 +40,10 @@ public class Hardware {
     // Intake motor
 
     private static final String intakeMotorName = "intakeMotor";
+
+    // Shooter motor
+
+    private static final String shooterMotorName = "shooterMotor";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -74,6 +78,9 @@ public class Hardware {
         intakeMotor = map.get(DcMotorEx.class, Hardware.intakeMotorName);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // Define shooter motor
+        shooterMotor = map.get(DcMotorEx.class, Hardware.shooterMotorName);
+
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
 
@@ -100,6 +107,9 @@ public class Hardware {
 
         // Setup intake motor
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Setup shooter mode
+        shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         // Init the pinpoint
         pinpoint.setOffsets(xOffset, yOffset, unit);

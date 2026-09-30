@@ -76,6 +76,10 @@ public class Drive {
      */
 
     public void mecanum(double forward, double strafe, double twist) {
+        // tune each value
+        forward *= DriveConsts.DriveSpeeds.forward;
+        strafe *= DriveConsts.DriveSpeeds.strafe;
+        twist *= DriveConsts.DriveSpeeds.twist;
         // Get the raw power for each wheel
         double fl = DriveConsts.WheelSpeeds.fl * (forward + strafe + twist);
         double fr = DriveConsts.WheelSpeeds.fr * (forward - strafe - twist);

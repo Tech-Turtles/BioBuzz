@@ -69,6 +69,10 @@ public class ControllerInput {
         return ((double) Math.abs(intakepad.left_stick_y));
     }
 
+    public boolean getShooter(Gamepad shooterpad) {
+        return (shooterpad.left_trigger_pressed);
+    }
+
     // game state input
     public boolean getEndgame() {
         // establish booleans

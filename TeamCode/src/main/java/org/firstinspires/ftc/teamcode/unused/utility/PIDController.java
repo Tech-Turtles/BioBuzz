@@ -246,7 +246,7 @@ public class PIDController {
     /**
      * Enables continuous input.
      *
-     * <p>Rather then using the max and min input range as constraints, it considers them to be the
+     * <p>Rather than using the max and min input range as constraints, it considers them to be the
      * same point and automatically calculates the shortest route to the setpoint.
      *
      * @param minimumInput The minimum value expected from the input.

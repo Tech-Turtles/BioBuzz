@@ -12,8 +12,8 @@ import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 import java.util.List;
 
-@TeleOp(name = "GameBot", group = "Bot")
-public class GameBot extends TeleOpEx {
+@TeleOp(name = "OtherBot", group = "Bot")
+public class OtherBot extends TeleOpEx {
 
     // drive robot in teleop
     @Override
@@ -28,7 +28,7 @@ public class GameBot extends TeleOpEx {
         double strafe = driveCommand.get(1);
         double twist = driveCommand.get(2);
         // now drive robot centric
-        robot.drive.robotCentric(forward, strafe, twist);
+        robot.drive.fieldCentric(forward, strafe, twist, position);
 
         // passively intake based on drive commands
         robot.intake.intake(input.getIntakeIdle(input.gamepad1));

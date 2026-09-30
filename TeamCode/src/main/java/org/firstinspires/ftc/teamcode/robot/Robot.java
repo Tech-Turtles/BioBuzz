@@ -6,6 +6,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.systems.Drive;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
+import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 public class Robot {
     // robot variable declarations
@@ -15,6 +16,7 @@ public class Robot {
     public Drive drive;
     public Odometry odometry;
     public Intake intake;
+    public Shooter shooter;
 
     // declare Pose2D for start
     public Pose2D start;
@@ -29,6 +31,7 @@ public class Robot {
         this.odometry = new Odometry(this);
         this.drive = new Drive(this);
         this.intake = new Intake(this);
+        this.shooter = new Shooter(this);
     }
 
     /**
@@ -38,5 +41,6 @@ public class Robot {
     public void stopAll() {
         drive.stop();
         intake.stop();
+        shooter.stop();
     }
 }
