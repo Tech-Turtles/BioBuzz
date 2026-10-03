@@ -12,6 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -106,10 +107,19 @@ public class Hardware {
         rearRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Setup intake motor
-        intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Configure shooter
+        MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();
+        // Set TPR and max RPM
+        shooterType.setTicksPerRev(28);
+        shooterType.setMaxRPM(6000);
+        // Set up configuration
+        shooterMotor.setMotorType(shooterType);
 
         // Init the pinpoint
         pinpoint.setOffsets(xOffset, yOffset, unit);

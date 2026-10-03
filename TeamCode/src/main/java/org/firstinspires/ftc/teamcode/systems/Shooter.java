@@ -17,7 +17,7 @@ public class Shooter {
     @Config("Shooter Speeds")
     public static class ShooterConsts {
         // speed in rotations per minute
-        public static double speed = 4000;
+        public static double speed = 100;
     }
 
     @Config("Shooter PID")
@@ -38,7 +38,7 @@ public class Shooter {
 
     public void run() {
         // run shooter motor
-        shooterMotor.setVelocity(ShooterConsts.speed * 6, AngleUnit.DEGREES);
+        shooterMotor.setVelocity(ShooterConsts.speed);
     }
 
     public void setPID() {

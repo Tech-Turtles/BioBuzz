@@ -35,6 +35,7 @@ public class OpModeEx extends OpMode {
         // Define robot
         robot = new Robot(hardwareMap, setStart());
         input = new ControllerInput(gamepad1, gamepad2);
+        output = new ControllerOutput(gamepad1, gamepad2);
     }
 
     @Override

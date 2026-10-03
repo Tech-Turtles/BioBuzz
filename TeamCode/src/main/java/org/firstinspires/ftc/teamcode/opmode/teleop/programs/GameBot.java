@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.teleop.programs;
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
+import com.qualcomm.hardware.lynx.LynxDcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -48,6 +49,12 @@ public class GameBot extends TeleOpEx {
             robot.shooter.stop();
         }
 
+        if (gamepad1.dpad_down) {
+            Shooter.ShooterConsts.speed += 2;
+        } else if (gamepad1.dpad_up) {
+            Shooter.ShooterConsts.speed -= 2;
+        }
+
         // update dashboard
         dashboard();
     }
@@ -87,6 +94,11 @@ public class GameBot extends TeleOpEx {
         // shooter data
         packet.put("Shooter RPM", robot.shooter.getRPM());
         packet.put("Shooter Target", Shooter.ShooterConsts.speed);
+        packet.put("Ticks per Rotation", robot.hardware.shooterMotor.getMotorType().getTicksPerRev());
+        packet.put("Max RPM", robot.hardware.shooterMotor.getMotorType().getMaxRPM());
+
+        telemetry.addData("Shooter RPM", robot.shooter.getRPM());
+        telemetry.addData("Shooter Target", Shooter.ShooterConsts.speed);
 
         // send the telemetry packet
         dashboard.sendTelemetryPacket(packet);
