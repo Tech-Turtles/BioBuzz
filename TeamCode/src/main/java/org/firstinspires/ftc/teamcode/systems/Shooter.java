@@ -26,8 +26,14 @@ public class Shooter {
         public static double kP = 100;
         public static double kI = 0;
         public static double kD = 3.5;
-        public static double kF = 12;
+        public static double kF = 13;
     }
+
+    /**
+     * Creates a shooter
+     * @author Brantley
+     * @param robot
+     */
 
     public Shooter(Robot robot) {
         // define shooter motor

@@ -99,7 +99,6 @@ public class GameBot extends TeleOpEx {
         // shooter data
         packet.put("Shooter RPM", robot.shooter.getRPM());
         packet.put("Shooter Target", Shooter.ShooterConsts.speed);
-        packet.put("Ticks per Rotation", robot.hardware.shooterMotor.getMotorType().getTicksPerRev());
         packet.put("Max RPM", robot.hardware.shooterMotor.getMotorType().getMaxRPM());
 
         telemetry.addData("Shooter RPM", robot.shooter.getRPM());
