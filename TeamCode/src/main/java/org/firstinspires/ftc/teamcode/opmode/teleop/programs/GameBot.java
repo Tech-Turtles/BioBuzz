@@ -65,6 +65,11 @@ public class GameBot extends TeleOpEx {
         teleop_loop();
     }
 
+    @Override
+    public void over_loop() {
+        super.teleop_loop();
+    }
+
     public void dashboard() {
         // create the stuff
         TelemetryPacket packet = new TelemetryPacket();
