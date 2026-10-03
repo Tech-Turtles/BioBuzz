@@ -27,16 +27,24 @@ public class ControllerInput {
     // drive input
 
     /**
+     * Righ trigger is slow button
      * @author Brantley
      * @param drivepad the gamepad involved with collecting this driving info
      * @return a list with three values: forward, strafe, and twist in that order. Use forward = getDrive().get(0)...
      */
 
     public List<Double> getDrive(Gamepad drivepad) {
+
+        // define speed modifier
+        double speed = 1;
+        if (drivepad.right_trigger_pressed) {
+            speed = 0.25;
+        }
+
         // Get drive values from the gamepad decidedly used for driving
-        double forward = drivepad.left_stick_y;
-        double strafe = drivepad.left_stick_x;
-        double twist = -drivepad.right_stick_x;
+        double forward = drivepad.left_stick_y * speed;
+        double strafe = drivepad.left_stick_x * speed;
+        double twist = -drivepad.right_stick_x * speed;
 
         // Create list to store these drive values
         List<Double> drive = new ArrayList<>();

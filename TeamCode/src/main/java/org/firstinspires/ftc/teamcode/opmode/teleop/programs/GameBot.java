@@ -49,9 +49,9 @@ public class GameBot extends TeleOpEx {
             robot.shooter.stop();
         }
 
-        if (gamepad1.dpad_down) {
+        if (gamepad2.dpad_up) {
             Shooter.ShooterConsts.speed += 2;
-        } else if (gamepad1.dpad_up) {
+        } else if (gamepad2.dpad_down) {
             Shooter.ShooterConsts.speed -= 2;
         }
 
