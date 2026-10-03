@@ -111,7 +111,7 @@ public class Hardware {
 
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        shooterMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Configure shooter
         MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();

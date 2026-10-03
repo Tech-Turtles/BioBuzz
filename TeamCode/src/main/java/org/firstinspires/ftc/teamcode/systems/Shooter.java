@@ -38,7 +38,7 @@ public class Shooter {
 
     public void run() {
         // run shooter motor
-        shooterMotor.setVelocity(ShooterConsts.speed);
+        shooterMotor.setVelocity(ShooterConsts.speed * 6.0, AngleUnit.DEGREES);
     }
 
     public void setPID() {
