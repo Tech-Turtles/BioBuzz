@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -9,6 +10,12 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 public class Intake {
     // define the intake motor
     public DcMotorEx intakeMotor;
+
+    @Config("Intake Speeds")
+    public static class IntakeConsts {
+        // speed mod
+        public static double speedModifer = 0.5;
+    }
 
     public Intake(Robot robot) {
         // define intake motor
@@ -22,7 +29,7 @@ public class Intake {
      */
 
     public void intake(double speed) {
-        intakeMotor.setPower(Math.abs(speed));
+        intakeMotor.setPower(Math.abs(speed * IntakeConsts.speedModifer));
     }
 
     /**
@@ -32,7 +39,7 @@ public class Intake {
      */
 
     public void outtake(double speed) {
-        intakeMotor.setPower(-Math.abs(speed));
+        intakeMotor.setPower(-Math.abs(speed * IntakeConsts.speedModifer));
     }
 
     /**

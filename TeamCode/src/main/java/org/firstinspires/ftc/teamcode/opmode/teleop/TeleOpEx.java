@@ -79,11 +79,7 @@ public class TeleOpEx extends OpModeEx {
                 time = timer.seconds();
                 // Run the endgame loop
                 endgame_loop();
-                // now update the state machine
-                if (time >= (teleopTime + endgameTime)) {
-                    matchState = MatchState.OVER;
-                    over();
-                }
+                // don't update to over
                 // this is very important
                 break;
 
