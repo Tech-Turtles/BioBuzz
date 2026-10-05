@@ -67,7 +67,7 @@ public class GameBot extends TeleOpEx {
 
     @Override
     public void over_loop() {
-        super.teleop_loop();
+        teleop_loop();
     }
 
     public void dashboard() {
@@ -92,8 +92,8 @@ public class GameBot extends TeleOpEx {
         fieldOverlay.strokeLine(x, y, arrowX, arrowY);
 
         // numerical telemetry
-        packet.put("x (mm)", x);
-        packet.put("y (mm)", y);
+        packet.put("x (in)", x);
+        packet.put("y (in)", y);
         packet.put("heading (deg)", Math.toDegrees(heading));
 
         // shooter data
