@@ -81,6 +81,10 @@ public class ControllerInput {
         return (shooterpad.left_trigger_pressed);
     }
 
+    public boolean getTransfer(Gamepad transferpad) {
+        return (transferpad.left_bumper);
+    }
+
     // game state input
     public boolean getEndgame() {
         // establish booleans

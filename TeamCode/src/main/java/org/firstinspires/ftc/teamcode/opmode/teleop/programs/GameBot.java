@@ -49,6 +49,13 @@ public class GameBot extends TeleOpEx {
             robot.shooter.stop();
         }
 
+        // now run the transfer
+        if (input.getTransfer(input.gamepad2)) {
+            robot.transfer.run();
+        } else {
+            robot.transfer.stop();
+        }
+
         if (gamepad2.dpad_up) {
             Shooter.ShooterConsts.speed += 2;
         } else if (gamepad2.dpad_down) {

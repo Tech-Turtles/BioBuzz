@@ -7,11 +7,13 @@ import androidx.annotation.NonNull;
 import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -25,6 +27,7 @@ public class Hardware {
 
     // declare system motors
     public DcMotorEx intakeMotor, shooterMotor;
+    public CRServo transferServo;
 
     // Declare IMU
     public IMU imu;
@@ -45,6 +48,9 @@ public class Hardware {
     // Shooter motor
 
     private static final String shooterMotorName = "shooterMotor";
+
+    // Transfer servo
+    private static final String transferServoName = "transferServo";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -82,6 +88,9 @@ public class Hardware {
         // Define shooter motor
         shooterMotor = map.get(DcMotorEx.class, Hardware.shooterMotorName);
 
+        // Define transfer servo
+        transferServo = map.get(CRServo.class, Hardware.transferServoName);
+
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
 
@@ -112,6 +121,9 @@ public class Hardware {
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        // Setup transfer servo
+        transferServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Configure shooter
         MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();

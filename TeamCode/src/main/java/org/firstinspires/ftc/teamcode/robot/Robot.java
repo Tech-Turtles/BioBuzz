@@ -7,6 +7,7 @@ import org.firstinspires.ftc.teamcode.systems.Drive;
 import org.firstinspires.ftc.teamcode.systems.Intake;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
+import org.firstinspires.ftc.teamcode.systems.Transfer;
 
 public class Robot {
     // robot variable declarations
@@ -17,6 +18,7 @@ public class Robot {
     public Odometry odometry;
     public Intake intake;
     public Shooter shooter;
+    public Transfer transfer;
 
     // declare Pose2D for start
     public Pose2D start;
@@ -32,6 +34,7 @@ public class Robot {
         this.drive = new Drive(this);
         this.intake = new Intake(this);
         this.shooter = new Shooter(this);
+        this.transfer = new Transfer(this);
     }
 
     /**
@@ -42,5 +45,7 @@ public class Robot {
         drive.stop();
         intake.stop();
         shooter.stop();
+        transfer.stop();
+        transfer.stop();
     }
 }
