@@ -50,10 +50,12 @@ public class GameBot extends TeleOpEx {
         }
 
         // now run the transfer
-        if (input.getTransfer(input.gamepad2)) {
-            robot.transfer.run();
+        robot.transfer.firstTransferServo.setPower(-intakeCommand);
+
+        if (robot.shooter.getRPM() >= 0.95 * Shooter.ShooterConsts.speed) {
+            robot.transfer.runSecond();
         } else {
-            robot.transfer.stop();
+            robot.transfer.secondTransferServo.setPower(0);
         }
 
         if (gamepad2.dpad_up) {

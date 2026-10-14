@@ -9,7 +9,6 @@ public class Transfer {
 
     public CRServo firstTransferServo;
     public CRServo secondTransferServo;
-
     @Config("Transfer Speeds")
     public static class TransferSpeeds {
         // transfer speed here
@@ -19,13 +18,17 @@ public class Transfer {
 
     public Transfer(Robot robot) {
         // define transfer servo
-        firstTransferServo = robot.hardware.firstTransferServo;
-        secondTransferServo = robot.hardware.secondTransferServo;
+        this.firstTransferServo = robot.hardware.firstTransferServo;
+        this.secondTransferServo = robot.hardware.secondTransferServo;
     }
 
-    public void run() {
+    public void runFirst() {
         // run the servo
-        firstTransferServo.setPower(TransferSpeeds.speed);
+        //firstTransferServo.setPower(-TransferSpeeds.speed);
+    }
+
+    public void runSecond() {
+        // run the servo
         secondTransferServo.setPower(TransferSpeeds.speed);
     }
 

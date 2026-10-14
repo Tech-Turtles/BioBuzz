@@ -46,6 +46,5 @@ public class Robot {
         intake.stop();
         shooter.stop();
         transfer.stop();
-        transfer.stop();
     }
 }

@@ -11,15 +11,20 @@ public class Intake {
     // define the intake motor
     public DcMotorEx intakeMotor;
 
+    public Robot robot;
+
     @Config("Intake Speeds")
     public static class IntakeConsts {
         // speed mod
-        public static double speedModifer = 0.5;
+        public static double speedModifer = 1;
+
     }
 
     public Intake(Robot robot) {
         // define intake motor
         intakeMotor = robot.hardware.intakeMotor;
+
+        this.robot = robot;
     }
 
     /**

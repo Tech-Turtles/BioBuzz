@@ -18,8 +18,8 @@ public class Drive {
         @Config("Drive Speeds")
         public static class DriveSpeeds {
             public static double forward = 1.0;
-            public static double strafe = 1.2;
-            public static double twist = 1.4;
+            public static double strafe = 1.0;
+            public static double twist = 1.0;
         }
         // Wheel speeds
         @Config("Wheel Speeds")
