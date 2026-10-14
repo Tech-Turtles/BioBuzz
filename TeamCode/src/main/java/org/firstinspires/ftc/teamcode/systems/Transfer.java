@@ -7,7 +7,8 @@ import org.firstinspires.ftc.teamcode.robot.Robot;
 
 public class Transfer {
 
-    public CRServo transferServo;
+    public CRServo firstTransferServo;
+    public CRServo secondTransferServo;
 
     @Config("Transfer Speeds")
     public static class TransferSpeeds {
@@ -18,16 +19,19 @@ public class Transfer {
 
     public Transfer(Robot robot) {
         // define transfer servo
-        transferServo = robot.hardware.transferServo;
+        firstTransferServo = robot.hardware.firstTransferServo;
+        secondTransferServo = robot.hardware.secondTransferServo;
     }
 
     public void run() {
         // run the servo
-        transferServo.setPower(TransferSpeeds.speed);
+        firstTransferServo.setPower(TransferSpeeds.speed);
+        secondTransferServo.setPower(TransferSpeeds.speed);
     }
 
     public void stop() {
         // stop the servo
-        transferServo.setPower(TransferSpeeds.speed);
+        firstTransferServo.setPower(0);
+        secondTransferServo.setPower(0);
     }
 }

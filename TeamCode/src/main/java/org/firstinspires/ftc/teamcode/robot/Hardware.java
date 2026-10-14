@@ -27,7 +27,7 @@ public class Hardware {
 
     // declare system motors
     public DcMotorEx intakeMotor, shooterMotor;
-    public CRServo transferServo;
+    public CRServo firstTransferServo, secondTransferServo;
 
     // Declare IMU
     public IMU imu;
@@ -50,7 +50,8 @@ public class Hardware {
     private static final String shooterMotorName = "shooterMotor";
 
     // Transfer servo
-    private static final String transferServoName = "transferServo";
+    private static final String firstTransferServoName = "transfer1";
+    private static final String secondTransferServoName = "transfer2";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -89,7 +90,8 @@ public class Hardware {
         shooterMotor = map.get(DcMotorEx.class, Hardware.shooterMotorName);
 
         // Define transfer servo
-        transferServo = map.get(CRServo.class, Hardware.transferServoName);
+        firstTransferServo = map.get(CRServo.class, Hardware.firstTransferServoName);
+        secondTransferServo = map.get(CRServo.class, Hardware.secondTransferServoName);
 
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
@@ -123,7 +125,8 @@ public class Hardware {
         shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Setup transfer servo
-        transferServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        firstTransferServo.setDirection(DcMotorSimple.Direction.FORWARD);
+        secondTransferServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Configure shooter
         MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();
