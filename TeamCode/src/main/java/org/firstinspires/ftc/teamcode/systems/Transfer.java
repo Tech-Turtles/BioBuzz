@@ -11,7 +11,7 @@ public class Transfer {
 
     @Config("Transfer Speeds")
     public static class TransferSpeeds {
-        // transfer speed
+        // transfer speed here
         public static double speed = 1;
     }
 
