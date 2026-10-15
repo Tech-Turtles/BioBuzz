@@ -130,7 +130,7 @@ public class ShootBot extends AutonomousEx {
         robot.intake.intake();
         // run shooter
         robot.shooter.run();
-        // smart run the transfer (only if shooter is up to speed
+        // smart run the transfer (only if shooter is up to speed)
         robot.transfer.smartRun();
     }
 
