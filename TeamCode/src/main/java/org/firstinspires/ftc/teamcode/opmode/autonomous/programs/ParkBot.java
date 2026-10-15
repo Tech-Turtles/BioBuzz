@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous.programs;
 import android.service.autofill.FieldClassification;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
 import org.opencv.core.Mat;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@Autonomous(name = "Park", group = "Bot")
+@Autonomous
 public class Park extends AutonomousEx {
 
     public enum MatchState {
