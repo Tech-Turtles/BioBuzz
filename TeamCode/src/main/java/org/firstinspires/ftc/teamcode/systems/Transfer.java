@@ -6,9 +6,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 
 public class Transfer {
-
-    public CRServo firstTransferServo;
-    public CRServo secondTransferServo;
+    public CRServo transferServo;
+    public Robot robot;
     @Config("Transfer Speeds")
     public static class TransferSpeeds {
         // transfer speed here
@@ -18,23 +17,31 @@ public class Transfer {
 
     public Transfer(Robot robot) {
         // define transfer servo
-        this.firstTransferServo = robot.hardware.firstTransferServo;
-        this.secondTransferServo = robot.hardware.secondTransferServo;
+        this.transferServo = robot.hardware.transferServo;
+        // store robot
+        this.robot = robot;
     }
 
-    public void runFirst() {
+    public void run() {
         // run the servo
-        //firstTransferServo.setPower(-TransferSpeeds.speed);
+        transferServo.setPower(TransferSpeeds.speed);
     }
 
-    public void runSecond() {
-        // run the servo
-        secondTransferServo.setPower(TransferSpeeds.speed);
+    /**
+     * Runs only if the shooter motor is close enough to it's target speed
+     * @author Brantley
+     */
+
+    public void smartRun() {
+        if (robot.shooter.getRPM() >= 0.95 * Shooter.ShooterConsts.speed) {
+            run();
+        } else {
+            stop();
+        }
     }
 
     public void stop() {
         // stop the servo
-        firstTransferServo.setPower(0);
-        secondTransferServo.setPower(0);
+        transferServo.setPower(0);
     }
 }

@@ -1,9 +1,7 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.programs;
 
-import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
-import com.qualcomm.hardware.lynx.LynxDcMotorController;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -32,14 +30,16 @@ public class GameBot extends TeleOpEx {
         robot.drive.robotCentric(forward, strafe, twist);
 
         // passively intake based on drive commands
-        robot.intake.intake(input.getIntakeIdle(input.gamepad1));
+        if (Math.abs(input.getIntakeIdle(input.gamepad1)) >= 0.1) {
+            robot.intake.intake();
+        }
         // now actively intake from driver 2
         double intakeCommand = input.getIntake(input.gamepad2);
         // outtake
-        if (intakeCommand > 0) {
-            robot.intake.intake(intakeCommand);
-        } else if (intakeCommand < 0) {
-            robot.intake.outtake(intakeCommand);
+        if (intakeCommand > 0.1) {
+            robot.intake.intake();
+        } else if (intakeCommand < 0.1) {
+            robot.intake.outtake();
         }
 
         // now run the shooter if necessary
@@ -50,19 +50,7 @@ public class GameBot extends TeleOpEx {
         }
 
         // now run the transfer
-        robot.transfer.firstTransferServo.setPower(-intakeCommand);
-
-        if (robot.shooter.getRPM() >= 0.95 * Shooter.ShooterConsts.speed) {
-            robot.transfer.runSecond();
-        } else {
-            robot.transfer.secondTransferServo.setPower(0);
-        }
-
-        if (gamepad2.dpad_up) {
-            Shooter.ShooterConsts.speed += 2;
-        } else if (gamepad2.dpad_down) {
-            Shooter.ShooterConsts.speed -= 2;
-        }
+        robot.transfer.smartRun();
 
         // update dashboard
         dashboard();

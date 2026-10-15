@@ -1,50 +1,47 @@
 package org.firstinspires.ftc.teamcode.systems;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 
 public class Intake {
     // define the intake motor
     public DcMotorEx intakeMotor;
-
-    public Robot robot;
+    public CRServo intakeServo;
 
     @Config("Intake Speeds")
     public static class IntakeConsts {
         // speed mod
-        public static double speedModifer = 1;
+        public static double speed = 1;
 
     }
 
     public Intake(Robot robot) {
         // define intake motor
         intakeMotor = robot.hardware.intakeMotor;
-
-        this.robot = robot;
+        intakeServo = robot.hardware.intakeServo;
     }
 
     /**
      * Runs the intake in
      * @author Brantley
-     * @param speed the speed at which the intake intakes. 0-1.
      */
 
-    public void intake(double speed) {
-        intakeMotor.setPower(Math.abs(speed * IntakeConsts.speedModifer));
+    public void intake() {
+        intakeMotor.setPower(Math.abs(IntakeConsts.speed));
+        intakeServo.setPower(Math.abs(IntakeConsts.speed));
     }
 
     /**
      * Runs the intake out
      * @author Brantley
-     * @param speed the speed at which the intake outtakes. 0-1.
      */
 
-    public void outtake(double speed) {
-        intakeMotor.setPower(-Math.abs(speed * IntakeConsts.speedModifer));
+    public void outtake() {
+        intakeMotor.setPower(-Math.abs(IntakeConsts.speed));
+        intakeServo.setPower(-Math.abs(IntakeConsts.speed));
     }
 
     /**
@@ -54,5 +51,6 @@ public class Intake {
 
     public void stop() {
         intakeMotor.setPower(0);
+        intakeServo.setPower(0);
     }
 }

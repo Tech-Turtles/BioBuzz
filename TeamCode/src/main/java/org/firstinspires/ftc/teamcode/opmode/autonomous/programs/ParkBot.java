@@ -1,28 +1,30 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous.programs;
 
-import android.service.autofill.FieldClassification;
-
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
-import org.opencv.core.Mat;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 
-@Autonomous
-public class Park extends AutonomousEx {
+@Autonomous(name = "ParkBot", group = "Bot")
+public class ParkBot extends AutonomousEx {
 
     public enum MatchState {
-        STRAFE,
+        PARK,
         OVER
     }
 
     public static class Constants {
-        public static List<Double> vector = Arrays.asList(0.0, 1.0, 0.0);
+        @Config("Park Autonomous - Park Constants")
+        public static class Park {
+            public static double time = 0.3;
+            public static double forward = 0.0;
+            public static double strafe = 1.0;
+            public static double twist = 0.0;
+        }
     }
 
     public MatchState matchState;
@@ -33,24 +35,39 @@ public class Park extends AutonomousEx {
         super.init();
         // assuming blue alliance
         // set matchstate
-        matchState = MatchState.STRAFE;
+        matchState = MatchState.PARK;
     }
 
     @Override
     public void stateMachine() {
         switch (matchState) {
-            case STRAFE:
-                if (timer.seconds() <= 0.5) {
-                    robot.drive.robotCentric(Constants.vector.get(0), Constants.vector.get(1), Constants.vector.get(0));
+            case PARK:
+                if (timer.seconds() <= Constants.Park.time) {
+                    park();
                 } else {
-                    timer.reset();
-                    matchState = MatchState.OVER;
+                    nextState();
                 }
-
                 break;
 
             case OVER:
                 stop();
+                break;
+        }
+    }
+
+    public void park() {
+        robot.drive.robotCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist);
+    }
+
+    public void nextState() {
+        // reset timer
+        timer.reset();
+        // state machine
+        switch (matchState) {
+            case PARK:
+                // update matchstate
+                matchState = MatchState.OVER;
+                // brk code
                 break;
         }
     }

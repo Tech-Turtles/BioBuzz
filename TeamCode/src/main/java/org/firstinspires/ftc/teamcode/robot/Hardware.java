@@ -1,10 +1,5 @@
 package org.firstinspires.ftc.teamcode.robot;
 
-import android.view.WindowInsets;
-
-import androidx.annotation.NonNull;
-
-import com.acmerobotics.roadrunner.Pose2d;
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -13,11 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 
 public class Hardware {
 
@@ -27,7 +20,7 @@ public class Hardware {
 
     // declare system motors
     public DcMotorEx intakeMotor, shooterMotor;
-    public CRServo firstTransferServo, secondTransferServo;
+    public CRServo intakeServo, transferServo;
 
     // Declare IMU
     public IMU imu;
@@ -50,8 +43,8 @@ public class Hardware {
     private static final String shooterMotorName = "shooterMotor";
 
     // Transfer servo
-    private static final String firstTransferServoName = "firstTransferServo";
-    private static final String secondTransferServoName = "secondTransferServo";
+    private static final String intakeServoName = "firstTransferServo";
+    private static final String transferServoName = "secondTransferServo";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -90,8 +83,8 @@ public class Hardware {
         shooterMotor = map.get(DcMotorEx.class, Hardware.shooterMotorName);
 
         // Define transfer servo
-        firstTransferServo = map.get(CRServo.class, Hardware.firstTransferServoName);
-        secondTransferServo = map.get(CRServo.class, Hardware.secondTransferServoName);
+        intakeServo = map.get(CRServo.class, Hardware.intakeServoName);
+        transferServo = map.get(CRServo.class, Hardware.transferServoName);
 
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
@@ -120,14 +113,15 @@ public class Hardware {
         // Setup intake motor
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        // Setup intake servo
+        intakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Setup transfer servo
-        firstTransferServo.setDirection(DcMotorSimple.Direction.FORWARD);
-        secondTransferServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        transferServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
         // Configure shooter
         MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();
