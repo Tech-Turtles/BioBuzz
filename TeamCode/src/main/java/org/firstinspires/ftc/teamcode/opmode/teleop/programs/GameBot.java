@@ -30,7 +30,7 @@ public class GameBot extends TeleOpEx {
         robot.drive.robotCentric(forward, strafe, twist);
 
         // passively intake based on drive commands
-        if (Math.abs(input.getIntakeIdle(input.gamepad1)) >= 0.1) {
+        if (input.getIntakeIdle(input.gamepad1) >= 0.1) {
             robot.intake.intake();
         }
         // now actively intake from driver 2
@@ -38,7 +38,7 @@ public class GameBot extends TeleOpEx {
         // outtake
         if (intakeCommand > 0.1) {
             robot.intake.intake();
-        } else if (intakeCommand < 0.1) {
+        } else if (intakeCommand < -0.1) {
             robot.intake.outtake();
         }
 

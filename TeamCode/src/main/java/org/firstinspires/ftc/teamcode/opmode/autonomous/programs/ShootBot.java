@@ -36,7 +36,6 @@ public class ShootBot extends AutonomousEx {
         @Config("Shoot Autonomous - Shoot Constants")
         public static class Shoot {
             public static double time = 1.5;
-            public static double intakeSpeed = 1.0;
         }
 
         @Config("Shoot Autonomous - Park Constants")
@@ -109,6 +108,8 @@ public class ShootBot extends AutonomousEx {
             case SHOOT:
                 // update matchstate
                 matchState = MatchState.PARK;
+                // stop all systems
+                robot.stopAll();
                 // break code
                 break;
 
@@ -123,6 +124,8 @@ public class ShootBot extends AutonomousEx {
     // actual action logic, not just states or values
     public void position() {
         robot.drive.robotCentric(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist);
+        // start spinning the shooter up
+        robot.shooter.run();
     }
 
     public void shoot() {
