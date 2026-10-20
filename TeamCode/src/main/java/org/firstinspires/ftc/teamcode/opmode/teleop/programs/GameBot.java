@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.teamcode.control.ControllerInput;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
 
@@ -30,16 +31,18 @@ public class GameBot extends TeleOpEx {
         robot.drive.robotCentric(forward, strafe, twist);
 
         // passively intake based on drive commands
-        if (input.getIntakeIdle(input.gamepad1) >= 0.1) {
+        if (ControllerInput.buffer(input.getIntakeIdle(input.gamepad1))) {
             robot.intake.intake();
         }
         // now actively intake from driver 2
         double intakeCommand = input.getIntake(input.gamepad2);
-        // outtake
-        if (intakeCommand > 0.1) {
-            robot.intake.intake();
-        } else if (intakeCommand < -0.1) {
-            robot.intake.outtake();
+        // actively intake
+        if (ControllerInput.buffer(intakeCommand)) {
+            if (intakeCommand > 0) {
+                robot.intake.intake();
+            } else if (intakeCommand < 0) {
+                robot.intake.outtake();
+            }
         }
 
         // now run the shooter if necessary

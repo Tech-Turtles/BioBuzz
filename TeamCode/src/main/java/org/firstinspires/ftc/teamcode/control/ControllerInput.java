@@ -99,4 +99,10 @@ public class ControllerInput {
         // return the condition
         return (resetpad.dpadUpWasPressed());
     }
+
+    // buffer function
+    public static boolean buffer(double input) {
+        // buffer the input if it is greater or less than 0.1 or -0.1
+        return (Math.abs(input) >= 0.1);
+    }
 }
