@@ -5,6 +5,10 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class for handling controller input. You can see which buttons do what all in one place.
+ * @author Brantley
+ */
 public class ControllerInput {
 
     // Declare gamepads
@@ -98,6 +102,17 @@ public class ControllerInput {
     public boolean getResetPinpoint(Gamepad resetpad) {
         // return the condition
         return (resetpad.dpadUpWasPressed());
+    }
+
+    // get red alliance
+    public boolean getRedAlliance(Gamepad alliancepad) {
+        // return the condition
+        return (alliancepad.a); // TODO: Look on controller and see what button is red
+    }
+
+    public boolean getBlueALliance(Gamepad alliancepad) {
+        // return the conditoin
+        return (alliancepad.b); // TODO: Look on the controller and see what button is blue
     }
 
     // buffer function

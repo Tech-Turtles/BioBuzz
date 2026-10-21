@@ -59,6 +59,7 @@ public class ParkBot extends AutonomousEx {
         robot.drive.robotCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist);
     }
 
+    @Override
     public void nextState() {
         // reset timer
         timer.reset();

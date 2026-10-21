@@ -16,8 +16,8 @@ public class ShootBot extends AutonomousEx {
 
     // all matchstates for this auto
     public enum MatchState {
-        POSITION,
         SHOOT,
+        POSITION,
         PARK,
         OVER
     }
@@ -27,23 +27,25 @@ public class ShootBot extends AutonomousEx {
     public static class Constants {
         @Config("Shoot Autonomous - Position Constants")
         public static class Position {
-            public static double time = 0.3;
-            public static double forward = 0.0;
-            public static double strafe = -1.0;
-            public static double twist = 0.0;
+            public static double time = 2.3;
+            public static double forward = -1.0;
+            public static double strafe = -2;
+            public static double twist = -0.4;
         }
 
         @Config("Shoot Autonomous - Shoot Constants")
         public static class Shoot {
-            public static double time = 1.5;
+            public static double time = 12;
         }
+
+        // TODO: Rearrange update auto states for ShootBot
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double time = 1.0;
-            public static double forward = 0.7;
-            public static double strafe = -0.2;
-            public static double twist = 0.4;
+            public static double time = 1.3;
+            public static double forward = 0.4;
+            public static double strafe = 0;
+            public static double twist = 0;
         }
     }
 
@@ -57,7 +59,7 @@ public class ShootBot extends AutonomousEx {
         super.init();
         // assuming blue alliance
         // set matchstate
-        matchState = MatchState.POSITION;
+        matchState = MatchState.SHOOT;
     }
 
     // state handling
@@ -94,6 +96,7 @@ public class ShootBot extends AutonomousEx {
         }
     }
 
+    @Override
     public void nextState() {
         // reset timer
         timer.reset();
@@ -101,13 +104,13 @@ public class ShootBot extends AutonomousEx {
         switch (matchState) {
             case POSITION:
                 // set matchstate to next
-                matchState = MatchState.SHOOT;
+                matchState = MatchState.PARK;
                 // break code
                 break;
 
             case SHOOT:
                 // update matchstate
-                matchState = MatchState.PARK;
+                matchState = MatchState.POSITION;
                 // stop all systems
                 robot.stopAll();
                 // break code
