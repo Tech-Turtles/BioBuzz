@@ -107,12 +107,12 @@ public class ControllerInput {
     // get red alliance
     public boolean getRedAlliance(Gamepad alliancepad) {
         // return the condition
-        return (alliancepad.a); // TODO: Look on controller and see what button is red
+        return (alliancepad.a);
     }
 
     public boolean getBlueALliance(Gamepad alliancepad) {
         // return the conditoin
-        return (alliancepad.b); // TODO: Look on the controller and see what button is blue
+        return (alliancepad.b);
     }
 
     // buffer function

@@ -8,6 +8,7 @@ public class AutonomousEx extends OpModeEx {
 
     // def timer
     public ElapsedTime timer;
+    public ElapsedTime matchTimer;
 
     // def enum for alliance
     public enum Alliance {
@@ -23,6 +24,7 @@ public class AutonomousEx extends OpModeEx {
         super.init();
         // def timer
         timer = new ElapsedTime();
+        matchTimer = new ElapsedTime();
     }
 
     @Override
@@ -49,8 +51,9 @@ public class AutonomousEx extends OpModeEx {
         super.start();
         // start the timer
         timer.reset();
+        // start the match timer
+        matchTimer.reset();
     }
-
     @Override
     public void loop() {
         super.loop();

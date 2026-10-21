@@ -31,9 +31,6 @@ public class GameBot extends TeleOpEx {
         robot.drive.robotCentric(forward, strafe, twist);
 
         // passively intake based on drive commands
-        if (ControllerInput.buffer(input.getIntakeIdle(input.gamepad1))) {
-            robot.intake.intake();
-        }
         // now actively intake from driver 2
         double intakeCommand = input.getIntake(input.gamepad2);
         // actively intake
@@ -42,9 +39,9 @@ public class GameBot extends TeleOpEx {
                 robot.intake.intake();
             } else if (intakeCommand < 0) {
                 robot.intake.outtake();
-            } else {
-                robot.intake.stop();
             }
+        } else {
+            robot.intake.stop();
         }
 
         // now run the shooter if necessary
