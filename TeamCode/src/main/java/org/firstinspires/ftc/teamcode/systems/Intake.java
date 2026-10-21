@@ -14,7 +14,8 @@ public class Intake {
     @Config("Intake Speeds")
     public static class IntakeConsts {
         // speed mod
-        public static double speed = 1;
+        public static double motorSpeed = 1;
+        public static double servoSpeed = 1;
 
     }
 
@@ -30,8 +31,8 @@ public class Intake {
      */
 
     public void intake() {
-        intakeMotor.setPower(Math.abs(IntakeConsts.speed));
-        intakeServo.setPower(Math.abs(IntakeConsts.speed));
+        intakeMotor.setPower(Math.abs(IntakeConsts.motorSpeed));
+        intakeServo.setPower(Math.abs(IntakeConsts.servoSpeed));
     }
 
     /**
@@ -40,8 +41,8 @@ public class Intake {
      */
 
     public void outtake() {
-        intakeMotor.setPower(-Math.abs(IntakeConsts.speed));
-        intakeServo.setPower(-Math.abs(IntakeConsts.speed));
+        intakeMotor.setPower(-Math.abs(IntakeConsts.motorSpeed));
+        intakeServo.setPower(-Math.abs(IntakeConsts.servoSpeed));
     }
 
     /**

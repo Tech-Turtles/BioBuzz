@@ -42,6 +42,8 @@ public class GameBot extends TeleOpEx {
                 robot.intake.intake();
             } else if (intakeCommand < 0) {
                 robot.intake.outtake();
+            } else {
+                robot.intake.stop();
             }
         }
 
