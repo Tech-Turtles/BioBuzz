@@ -11,8 +11,10 @@ public class Intake {
     public DcMotorEx intakeMotor;
     public CRServo intakeServo;
 
+    public Robot robot;
+
     @Config("Intake Speeds")
-    public static class IntakeConsts {
+    public static class Consants {
         // speed mod
         public static double motorSpeed = 1;
         public static double servoSpeed = 1;
@@ -31,8 +33,8 @@ public class Intake {
      */
 
     public void intake() {
-        intakeMotor.setPower(Math.abs(IntakeConsts.motorSpeed));
-        intakeServo.setPower(Math.abs(IntakeConsts.servoSpeed));
+        intakeMotor.setPower(Consants.motorSpeed);
+        intakeServo.setPower(Consants.servoSpeed);
     }
 
     /**
@@ -41,8 +43,8 @@ public class Intake {
      */
 
     public void outtake() {
-        intakeMotor.setPower(-Math.abs(IntakeConsts.motorSpeed));
-        intakeServo.setPower(-Math.abs(IntakeConsts.servoSpeed));
+        intakeMotor.setPower(-Consants.motorSpeed);
+        intakeServo.setPower(-Consants.servoSpeed);
     }
 
     /**

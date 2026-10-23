@@ -114,7 +114,7 @@ public class Hardware {
         intakeMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         // Setup intake servo
-        intakeServo.setDirection(DcMotorSimple.Direction.REVERSE);
+        intakeServo.setDirection(DcMotorSimple.Direction.FORWARD);
 
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);

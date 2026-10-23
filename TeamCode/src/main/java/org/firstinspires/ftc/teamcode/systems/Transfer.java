@@ -33,7 +33,7 @@ public class Transfer {
      */
 
     public void smartRun() {
-        if (robot.shooter.getRPM() >= 0.98 * Shooter.ShooterConsts.speed) {
+        if (robot.shooter.getRPM() >= 0.99 * Shooter.ShooterConsts.speed) {
             run();
         } else {
             stop();
