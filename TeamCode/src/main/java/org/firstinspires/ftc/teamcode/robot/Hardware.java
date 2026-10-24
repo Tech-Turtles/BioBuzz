@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.robot;
 
+import static com.qualcomm.robotcore.hardware.Servo.Direction.REVERSE;
+
 import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.CRServo;
@@ -8,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.configuration.typecontainers.MotorConfigurationType;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -21,6 +24,8 @@ public class Hardware {
     // declare system motors
     public DcMotorEx intakeMotor, shooterMotor;
     public CRServo intakeServo, transferServo;
+
+    public Servo kickerServo;
 
     // Declare IMU
     public IMU imu;
@@ -45,6 +50,9 @@ public class Hardware {
     // Transfer servo
     private static final String intakeServoName = "firstTransferServo";
     private static final String transferServoName = "secondTransferServo";
+
+    // Kicker servo
+    private static final String kickerServoName = "kickerServo";
 
     // Define GoBuilda Pinpoint name
     public static final String pinpointName = "pinpoint";
@@ -86,6 +94,9 @@ public class Hardware {
         intakeServo = map.get(CRServo.class, Hardware.intakeServoName);
         transferServo = map.get(CRServo.class, Hardware.transferServoName);
 
+        // def kicker servo
+        kickerServo = map.get(Servo.class, Hardware.kickerServoName);
+
         // Define GoBuilda Pinpoint
         pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
 
@@ -123,6 +134,7 @@ public class Hardware {
         // Setup transfer servo
         transferServo.setDirection(DcMotorSimple.Direction.REVERSE);
 
+        kickerServo.setDirection(Servo.Direction.FORWARD);
         // Configure shooter
         MotorConfigurationType shooterType = shooterMotor.getMotorType().clone();
         // Set TPR and max RPM

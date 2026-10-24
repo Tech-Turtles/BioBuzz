@@ -8,6 +8,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.teamcode.control.ControllerInput;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
+import org.firstinspires.ftc.teamcode.systems.Kicker;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 import java.util.List;
@@ -55,6 +56,12 @@ public class GameBot extends TeleOpEx {
             Shooter.ShooterConsts.speed += 50;
         } else if (input.gamepad2.dpadDownWasPressed()) {
             Shooter.ShooterConsts.speed -= 50;
+        }
+
+        if (input.gamepad1.right_trigger_pressed) {
+            robot.kicker.setPositionOut();
+        } else {
+            robot.kicker.setPositionIn();
         }
 
         // now run the transfer

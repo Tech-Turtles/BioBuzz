@@ -22,6 +22,7 @@ public class ShootBot extends AutonomousEx {
     // all matchstates for this auto
     public enum MatchState {
         SHOOT,
+        PURGE,
         POSITION,
         PARK,
         OVER
@@ -42,7 +43,12 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Shoot Constants")
         public static class Shoot {
-            public static double time = 15;
+            public static double time = 12;
+        }
+
+        @Config("Shoot Autonomous - Purge Constants")
+        public static class Purge {
+            public static double time = 2;
         }
 
         // TODO: Rearrange update auto states for ShootBot
@@ -80,6 +86,13 @@ public class ShootBot extends AutonomousEx {
                     nextState();
                 }
                 break;
+
+            case PURGE:
+                if (timer.seconds() <= Constants.Purge.time) {
+                    purge();
+                } else {
+                    nextState();
+                }
 
             case SHOOT:
                 if (timer.seconds() <= Constants.Shoot.time) {
@@ -122,8 +135,13 @@ public class ShootBot extends AutonomousEx {
 
             case SHOOT:
                 // update matchstate
-                matchState = MatchState.POSITION;
+                matchState = MatchState.PURGE;
                 // break code
+                break;
+
+            case PURGE:
+                // up
+                matchState = MatchState.POSITION;
                 break;
 
             case PARK:
@@ -158,6 +176,10 @@ public class ShootBot extends AutonomousEx {
         robot.drive.robotCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist);
         // ds
         dashboard();
+    }
+
+    public void purge() {
+        robot.intake.outtake();
     }
 
     // dashboard method

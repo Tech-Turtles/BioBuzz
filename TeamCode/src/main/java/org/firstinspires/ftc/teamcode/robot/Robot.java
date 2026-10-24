@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.systems.Drive;
 import org.firstinspires.ftc.teamcode.systems.Intake;
+import org.firstinspires.ftc.teamcode.systems.Kicker;
 import org.firstinspires.ftc.teamcode.systems.Odometry;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
 import org.firstinspires.ftc.teamcode.systems.Transfer;
@@ -19,6 +20,8 @@ public class Robot {
     public Intake intake;
     public Shooter shooter;
     public Transfer transfer;
+
+    public Kicker kicker;
 
     // declare Pose2D for start
     public Pose2D start;
@@ -35,6 +38,7 @@ public class Robot {
         this.intake = new Intake(this);
         this.shooter = new Shooter(this);
         this.transfer = new Transfer(this);
+        this.kicker = new Kicker(this);
     }
 
     /**

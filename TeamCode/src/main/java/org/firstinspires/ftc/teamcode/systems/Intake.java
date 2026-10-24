@@ -14,7 +14,7 @@ public class Intake {
     public Robot robot;
 
     @Config("Intake Speeds")
-    public static class Consants {
+    public static class Constants {
         // speed mod
         public static double motorSpeed = 1;
         public static double servoSpeed = 1;
@@ -33,8 +33,8 @@ public class Intake {
      */
 
     public void intake() {
-        intakeMotor.setPower(Consants.motorSpeed);
-        intakeServo.setPower(Consants.servoSpeed);
+        intakeMotor.setPower(Constants.motorSpeed);
+        intakeServo.setPower(Constants.servoSpeed);
     }
 
     /**
@@ -43,8 +43,8 @@ public class Intake {
      */
 
     public void outtake() {
-        intakeMotor.setPower(-Consants.motorSpeed);
-        intakeServo.setPower(-Consants.servoSpeed);
+        intakeMotor.setPower(-Constants.motorSpeed);
+        intakeServo.setPower(-Constants.servoSpeed);
     }
 
     /**
