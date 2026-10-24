@@ -34,22 +34,22 @@ public class ShootBot extends AutonomousEx {
     public static class Constants {
         @Config("Shoot Autonomous - Position Constants")
         public static class Position {
-            public static double time = 2.3;
+            public static double time = 2.4;
             public static double forward = 0;
-            public static double strafe = -0.5;
+            public static double strafe = -0.3;
             public static double twist = -0.2;
         }
 
         @Config("Shoot Autonomous - Shoot Constants")
         public static class Shoot {
-            public static double time = 10;
+            public static double time = 15;
         }
 
         // TODO: Rearrange update auto states for ShootBot
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double time = 1.5;
+            public static double time = 2;
             public static double forward = 0.4;
             public static double strafe = 0;
             public static double twist = 0;

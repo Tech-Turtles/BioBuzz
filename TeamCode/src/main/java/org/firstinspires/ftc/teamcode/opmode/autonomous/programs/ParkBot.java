@@ -20,9 +20,9 @@ public class ParkBot extends AutonomousEx {
     public static class Constants {
         @Config("Park Autonomous - Park Constants")
         public static class Park {
-            public static double time = 0.3;
-            public static double forward = 0.0;
-            public static double strafe = 1.0;
+            public static double time = 0.6;
+            public static double forward = -0.38;
+            public static double strafe = 0.64;
             public static double twist = 0.0;
         }
     }
