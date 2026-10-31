@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.systems;
 import com.acmerobotics.dashboard.config.Config;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.robot.Robot;
@@ -61,8 +62,8 @@ public class Drive {
         double heading = position.getHeading(AngleUnit.RADIANS);
         // "rotate" forward and strafe values based on twist
         // heading is from pinpoint.getHeading(AngleUnit.RADIANS)
-        double rotatedForward = forward * Math.cos(heading) - strafe * Math.sin(heading);
-        double rotatedStrafe = forward * Math.sin(heading) + strafe * Math.cos(heading);
+        double rotatedForward = forward * Math.cos(-heading) - strafe * Math.sin(-heading);
+        double rotatedStrafe = forward * Math.sin(-heading) + strafe * Math.cos(-heading);
 
         // mecanum drive now
         mecanum(rotatedForward, rotatedStrafe, twist);

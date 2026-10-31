@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
 import org.opencv.core.Mat;
@@ -32,13 +33,18 @@ public class ShootBot extends AutonomousEx {
 
 
     // all constants for this auto, pay attention to naming convention "Auto name - Auto state"
+
+    @Override
+    public Pose2D setStart() {
+        return (new Pose2D(DistanceUnit.INCH, -15, -60, AngleUnit.DEGREES, -90));
+    }
     public static class Constants {
         @Config("Shoot Autonomous - Position Constants")
         public static class Position {
-            public static double time = 2.4;
-            public static double forward = 0;
-            public static double strafe = -0.3;
-            public static double twist = -0.2;
+            public static double targetX = -40;
+            public static double forward = 1;
+            public static double strafe = 0;
+            public static double twist = 0;
         }
 
         @Config("Shoot Autonomous - Shoot Constants")
@@ -55,9 +61,9 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double time = 2;
-            public static double forward = 0.4;
-            public static double strafe = 0;
+            public static double targetY = 17;
+            public static double forward = 0;
+            public static double strafe = -1;
             public static double twist = 0;
         }
     }
@@ -80,11 +86,7 @@ public class ShootBot extends AutonomousEx {
     public void stateMachine() {
         switch (matchState) {
             case POSITION:
-                if (timer.seconds() <= Constants.Position.time) {
-                    position();
-                } else {
-                    nextState();
-                }
+                position();
                 break;
 
             case PURGE:
@@ -103,11 +105,7 @@ public class ShootBot extends AutonomousEx {
                 break;
 
             case PARK:
-                if (timer.seconds() <= Constants.Park.time) {
-                    park();
-                } else {
-                    nextState();
-                }
+                park();
                 break;
 
             case OVER:
@@ -154,9 +152,13 @@ public class ShootBot extends AutonomousEx {
 
     // actual action logic, not just states or values
     public void position() {
-        robot.drive.robotCentric(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist);
+        robot.drive.fieldCentric(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist, position);
         // dashboard
         dashboard();
+
+        if (position.getX(DistanceUnit.INCH) <= Constants.Position.targetX) {
+            nextState();
+        }
     }
 
     // TODO: Make dashboard() a method of OpModeEx and have children override
@@ -173,7 +175,13 @@ public class ShootBot extends AutonomousEx {
     }
 
     public void park() {
-        robot.drive.robotCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist);
+        robot.drive.fieldCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, position);
+        // dashboard
+        dashboard();
+
+        if (position.getY(DistanceUnit.INCH) >= Constants.Park.targetY) {
+            nextState();
+        }
         // ds
         dashboard();
     }

@@ -17,7 +17,7 @@ public class Shooter {
     @Config("Shooter Speeds")
     public static class ShooterConsts {
         // speed in rotations per minute
-        public static double speed = 3400;
+        public static double speed = 2900;
     }
 
     @Config("Shooter PID")
@@ -38,9 +38,6 @@ public class Shooter {
     public Shooter(Robot robot) {
         // define shooter motor
         shooterMotor = robot.hardware.shooterMotor;
-        // stop and reset encoder
-        shooterMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void run() {

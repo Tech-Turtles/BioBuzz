@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.control.ControllerInput;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 import org.firstinspires.ftc.teamcode.systems.Kicker;
@@ -29,7 +30,7 @@ public class GameBot extends TeleOpEx {
         double strafe = driveCommand.get(1);
         double twist = driveCommand.get(2);
         // now drive robot centric
-        robot.drive.robotCentric(forward, strafe, twist);
+        robot.drive.fieldCentric(forward, strafe, twist, position);
 
         // passively intake based on drive commands
         // now actively intake from driver 2
@@ -62,6 +63,10 @@ public class GameBot extends TeleOpEx {
             robot.kicker.setPositionOut();
         } else {
             robot.kicker.setPositionIn();
+        }
+
+        if (input.getResetPosition(input.gamepad1)) {
+            position = robot.odometry.getStartPosition();
         }
 
         // now run the transfer

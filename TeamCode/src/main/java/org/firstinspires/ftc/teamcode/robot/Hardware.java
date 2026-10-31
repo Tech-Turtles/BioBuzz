@@ -29,8 +29,6 @@ public class Hardware {
 
     // Declare IMU
     public IMU imu;
-    // Declare pinpoint
-    public GoBildaPinpointDriver pinpoint;
 
     // HARDWARE NAMES
     // Define drive motor names
@@ -53,9 +51,6 @@ public class Hardware {
 
     // Kicker servo
     private static final String kickerServoName = "kickerServo";
-
-    // Define GoBuilda Pinpoint name
-    public static final String pinpointName = "pinpoint";
 
     // IMU name
     public static final String imuName = "imu";
@@ -96,9 +91,6 @@ public class Hardware {
 
         // def kicker servo
         kickerServo = map.get(Servo.class, Hardware.kickerServoName);
-
-        // Define GoBuilda Pinpoint
-        pinpoint = map.get(GoBildaPinpointDriver.class, Hardware.pinpointName);
 
         // get IMU
         imu = map.get(IMU.class, Hardware.imuName);
@@ -142,14 +134,6 @@ public class Hardware {
         shooterType.setMaxRPM(6000);
         // Set up configuration
         shooterMotor.setMotorType(shooterType);
-
-        // Init the pinpoint
-        pinpoint.setOffsets(xOffset, yOffset, unit);
-        pinpoint.setEncoderResolution(GoBildaPinpointDriver.GoBildaOdometryPods.goBILDA_4_BAR_POD);
-        // This method is probably necessary after some testing:
-        pinpoint.setEncoderDirections(GoBildaPinpointDriver.EncoderDirection.FORWARD, GoBildaPinpointDriver.EncoderDirection.REVERSED);
-        // For this it's crucial robot is not moving, or else the heading will drift
-        pinpoint.resetPosAndIMU();
 
         // Setup IMU positioning
         imu.initialize(imuPositioning);

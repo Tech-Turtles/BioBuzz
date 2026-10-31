@@ -98,12 +98,6 @@ public class TeleOpEx extends OpModeEx {
             // call endgame setup method
             endgame();
         }
-
-        if (input.getResetPinpoint(gamepad1)) {
-            robot.odometry.pinpoint.resetPosAndIMU();
-            telemetry.addLine("Pinpoint reset!");
-            telemetry.update();
-        }
     }
 
     // The below methods are meant to be overridden by

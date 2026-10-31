@@ -99,7 +99,7 @@ public class ControllerInput {
     }
 
     // pinpoint input
-    public boolean getResetPinpoint(Gamepad resetpad) {
+    public boolean getResetPosition(Gamepad resetpad) {
         // return the condition
         return (resetpad.dpadUpWasPressed());
     }
