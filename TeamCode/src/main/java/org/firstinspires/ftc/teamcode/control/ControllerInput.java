@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode.control;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.firstinspires.ftc.teamcode.utility.commands.DriveCommand;
+import org.firstinspires.ftc.teamcode.utility.commands.IntakeCommand;
 
 /**
  * Class for handling controller input. You can see which buttons do what all in one place.
@@ -26,21 +26,19 @@ public class ControllerInput {
         this.gamepad2 = gamepad2;
     }
 
-    // input getters
-
     // drive input
 
     /**
-     * Righ trigger is slow button
+     * Right trigger is slow button
      * @author Brantley
      * @param drivepad the gamepad involved with collecting this driving info
      * @return a list with three values: forward, strafe, and twist in that order. Use forward = getDrive().get(0)...
      */
 
-    public List<Double> getDrive(Gamepad drivepad) {
+    public DriveCommand getDrive(Gamepad drivepad) {
 
         // define speed modifier
-        double speed = 1;
+        double speed = 1.0;
         if (drivepad.right_trigger_pressed) {
             speed = 0.25;
         }
@@ -50,13 +48,10 @@ public class ControllerInput {
         double strafe = drivepad.left_stick_x * speed;
         double twist = -drivepad.right_stick_x * speed;
 
-        // Create list to store these drive values
-        List<Double> drive = new ArrayList<>();
-        drive.add(forward);
-        drive.add(strafe);
-        drive.add(twist);
+        // Create DriveCommand to store these drive values
+        DriveCommand command = new DriveCommand(forward, strafe, twist, speed);
         // Give back the list of drive values
-        return (drive);
+        return (command);
     }
 
     // intake input
@@ -67,8 +62,8 @@ public class ControllerInput {
      * @author Brantley
      */
 
-    public double getIntake(Gamepad intakepad) {
-        return (intakepad.left_stick_y);
+    public IntakeCommand getIntake(Gamepad intakepad) {
+        return (new IntakeCommand(intakepad.left_stick_y));
     }
 
     /**
@@ -83,10 +78,6 @@ public class ControllerInput {
 
     public boolean getShooter(Gamepad shooterpad) {
         return (shooterpad.left_trigger_pressed);
-    }
-
-    public boolean getTransfer(Gamepad transferpad) {
-        return (transferpad.left_bumper);
     }
 
     // game state input

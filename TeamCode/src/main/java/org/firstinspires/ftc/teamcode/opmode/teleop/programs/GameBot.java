@@ -1,127 +1,81 @@
 package org.firstinspires.ftc.teamcode.opmode.teleop.programs;
 
-import com.acmerobotics.dashboard.canvas.Canvas;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.control.ControllerInput;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
-import org.firstinspires.ftc.teamcode.systems.Kicker;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
-
-import java.util.List;
+import org.firstinspires.ftc.teamcode.utility.commands.IntakeCommand;
 
 @TeleOp(name = "GameBot", group = "Bot")
 public class GameBot extends TeleOpEx {
 
-    // drive robot in teleop
     @Override
-    public void teleop_loop() {
+    public void loop() {
         // run parent logic
-        super.teleop_loop();
+        super.loop();
 
-        // get list for driving
-        List<Double> driveCommand = input.getDrive(input.gamepad1);
-        // assign values from list
-        double forward = driveCommand.get(0);
-        double strafe = driveCommand.get(1);
-        double twist = driveCommand.get(2);
-        // now drive robot centric
-        robot.drive.fieldCentric(forward, strafe, twist, position);
+        // drive code
+        robot.drive.fieldCentric(input.getDrive(gamepad1), position);
 
-        // passively intake based on drive commands
-        // now actively intake from driver 2
-        double intakeCommand = input.getIntake(input.gamepad2);
+        // intake code
+        IntakeCommand command = input.getIntake(gamepad2);
         // actively intake
-        if (ControllerInput.buffer(intakeCommand)) {
-            if (intakeCommand > 0) {
+        if (command.getValidity()) {
+            if (command.getPositivity()) {
                 robot.intake.intake();
-            } else if (intakeCommand < 0) {
+            } else {
                 robot.intake.outtake();
             }
         } else {
             robot.intake.stop();
         }
 
-        // now run the shooter if necessary
-        if (input.getShooter(input.gamepad2)) {
+        // shooter code
+        if (input.getShooter(gamepad2)) {
             robot.shooter.run();
         } else {
             robot.shooter.stop();
         }
+        robot.transfer.smartRun();
 
-        if (input.gamepad2.dpadUpWasPressed()) {
+        // rpm code
+        if (gamepad2.dpadUpWasPressed()) {
             Shooter.ShooterConsts.speed += 50;
         } else if (input.gamepad2.dpadDownWasPressed()) {
             Shooter.ShooterConsts.speed -= 50;
         }
 
-        if (input.gamepad1.right_trigger_pressed) {
+        // kicker code
+        if (gamepad1.right_trigger_pressed) {
             robot.kicker.setPositionOut();
         } else {
             robot.kicker.setPositionIn();
         }
 
-        if (input.getResetPosition(input.gamepad1)) {
+        // odometry code
+        if (input.getResetPosition(gamepad1)) {
             position = robot.odometry.getStartPosition();
         }
-
-        // now run the transfer
-        robot.transfer.smartRun();
-
-        // update dashboard
-        dashboard();
     }
 
     @Override
-    public void endgame_loop() {
-        super.endgame_loop();
-        teleop_loop();
-    }
-
-    @Override
-    public void over_loop() {
-        teleop_loop();
-    }
-
     public void dashboard() {
+        // run parent logic: draw the robot on the field
+        super.dashboard();
+
         // create the stuff
         TelemetryPacket packet = new TelemetryPacket();
-        Canvas fieldOverlay = packet.fieldOverlay();
 
-        // get the odometry data
-        double x = position.getX(DistanceUnit.INCH);
-        double y = position.getY(DistanceUnit.INCH);
-        double heading = position.getHeading(AngleUnit.RADIANS);
-
-        // get arrow x and y
-        double robotRadius = 9;
-        double arrowX = x + robotRadius * Math.cos(heading);
-        double arrowY = y + robotRadius * Math.sin(heading);
-
-        // draw the robot's vector on the field
-        fieldOverlay.setStrokeWidth(1);
-        fieldOverlay.setStroke("#3F51B5");
-        fieldOverlay.strokeCircle(x, y, robotRadius);
-        fieldOverlay.strokeLine(x, y, arrowX, arrowY);
-
-        // numerical telemetry
-        packet.put("x (in)", x);
-        packet.put("y (in)", y);
-        packet.put("heading (deg)", Math.toDegrees(heading));
-
-        // shooter data
+        // dashboard data
         packet.put("Shooter RPM", robot.shooter.getRPM());
         packet.put("Shooter Target", Shooter.ShooterConsts.speed);
-        packet.put("Max RPM", robot.hardware.shooterMotor.getMotorType().getMaxRPM());
 
+        // telemetry data
         telemetry.addData("Shooter RPM", robot.shooter.getRPM());
         telemetry.addData("Shooter Target", Shooter.ShooterConsts.speed);
 
-        // send the telemetry packet
+        // send the packet
         dashboard.sendTelemetryPacket(packet);
     }
 }

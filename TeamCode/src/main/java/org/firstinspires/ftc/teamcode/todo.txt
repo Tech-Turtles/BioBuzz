@@ -1,0 +1,6 @@
+Priority 9 - Write roadrunner architecture
+Priority 7 - Make timeAllowed functionality of AutonomousEx
+Priority 7 - Have dashboard() be a method of OpModeEx that is overridden by children
+Priority 6 - Clean up all of GameBot's hardcodes
+Priority 3 - Remove traces of pinpoint from Hardware
+Priority 0 - Add JavaDoc for all functions

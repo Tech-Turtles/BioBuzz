@@ -3,8 +3,31 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = 'https://maven.brott.dev/' }
+    }
+}
+
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+
+    repositories {
+        google()
+        mavenCentral()
+
+        maven {
+            url = 'https://maven.brott.dev/'
+        }
+
+        maven {
+            url = 'https://repo.acmerobotics.org/maven/'
+        }
     }
 }
 
 include ':FtcRobotController'
 include ':TeamCode'
+include ':MeepMeep'

@@ -1,0 +1,45 @@
+package com.example.meepmeeptesting;
+
+import com.acmerobotics.roadrunner.Pose2d;
+import com.acmerobotics.roadrunner.Vector2d;
+import com.noahbres.meepmeep.roadrunner.DefaultBotBuilder;
+import com.noahbres.meepmeep.roadrunner.entity.RoadRunnerBotEntity;
+
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.Objects;
+
+import javax.imageio.ImageIO;
+
+public class MeepMeep {
+    public static void main(String[] args) throws IOException {
+        com.noahbres.meepmeep.MeepMeep meepMeep = new com.noahbres.meepmeep.MeepMeep(800);
+
+        RoadRunnerBotEntity bot = new DefaultBotBuilder(meepMeep)
+                .setConstraints(
+                        60,
+                        60,
+                        Math.toRadians(180),
+                        Math.toRadians(180),
+                        15
+                )
+                .build();
+
+        bot.runAction(bot.getDrive().actionBuilder(new Pose2d(23-9, 70-9, Math.toRadians(-90)))
+                .splineToConstantHeading(new Vector2d(38, 38), 0)
+                .splineToLinearHeading(new Pose2d(56, -34, Math.toRadians(180)), 7)
+                .build()
+        );
+
+        BufferedImage fieldImage = ImageIO.read(
+                Objects.requireNonNull(MeepMeep.class.getResourceAsStream("/biobuzz_field.png"))
+        );
+
+        meepMeep.setBackground(fieldImage)
+                .setDarkMode(true)
+                .setBackgroundAlpha(1.00f)
+                .addEntity(bot)
+                .start();
+    }
+}

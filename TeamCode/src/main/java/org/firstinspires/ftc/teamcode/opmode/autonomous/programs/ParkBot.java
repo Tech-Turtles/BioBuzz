@@ -4,9 +4,7 @@ import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
-
-import java.util.Arrays;
-import java.util.List;
+import org.firstinspires.ftc.teamcode.utility.commands.DriveCommand;
 
 
 @Autonomous(name = "ParkBot", group = "Bot")
@@ -56,7 +54,8 @@ public class ParkBot extends AutonomousEx {
     }
 
     public void park() {
-        robot.drive.robotCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist);
+        DriveCommand command = new DriveCommand(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, 1.0);
+        robot.drive.robotCentric(command);
     }
 
     @Override

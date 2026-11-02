@@ -10,10 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
-import org.opencv.core.Mat;
-
-import java.util.Arrays;
-import java.util.List;
+import org.firstinspires.ftc.teamcode.utility.commands.DriveCommand;
 
 
 @Autonomous(name = "ShootBot", group = "Bot")
@@ -152,7 +149,8 @@ public class ShootBot extends AutonomousEx {
 
     // actual action logic, not just states or values
     public void position() {
-        robot.drive.fieldCentric(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist, position);
+        DriveCommand command = new DriveCommand(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist, 1.0);
+        robot.drive.fieldCentric(command, position);
         // dashboard
         dashboard();
 
@@ -175,7 +173,8 @@ public class ShootBot extends AutonomousEx {
     }
 
     public void park() {
-        robot.drive.fieldCentric(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, position);
+        DriveCommand command = new DriveCommand(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, 1.0);
+        robot.drive.fieldCentric(command, position);
         // dashboard
         dashboard();
 
@@ -191,6 +190,7 @@ public class ShootBot extends AutonomousEx {
     }
 
     // dashboard method
+    @Override
     public void dashboard() {
         // create the stuff
         TelemetryPacket packet = new TelemetryPacket();
