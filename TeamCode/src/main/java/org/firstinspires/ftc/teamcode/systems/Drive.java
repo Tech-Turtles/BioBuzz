@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.systems;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.robot.Robot;
@@ -67,6 +68,53 @@ public class Drive {
         hardware.rearLeftDrive.setPower(rl / scale);
         hardware.rearRightDrive.setPower(rr / scale);
     }
+
+    // here come the methods meant to be used in auto as a sort of psuedo road runner
+    public boolean straightToXY(Pose2D current, Pose2D target) {
+
+        // current pos
+        double x = current.getX(DistanceUnit.INCH);
+        double y = current.getY(DistanceUnit.INCH);
+        // target pos
+        double targetX = target.getX(DistanceUnit.INCH);
+        double targetY = target.getY(DistanceUnit.INCH);
+
+        double errorX = targetX - x;
+        double errorY = targetY - y;
+
+        boolean thereX = (errorX > -1)&&(errorX < 1);
+        boolean thereY = (errorY > -1)&&(errorY < 1);
+        boolean there = thereX && thereY;
+
+        double powerX = 0;
+        double powerY = 0;
+
+        if (!there) {
+            if (!thereX) {
+                if (errorX < 0) {
+                    powerX = 1;
+                }
+                if (errorX > 0) {
+                    powerX = -1;
+                }
+            }
+            if (!thereY) {
+                if (errorY < 0) {
+                    powerY = -1;
+                }
+                if (errorY > 0) {
+                    powerY = 1;
+                }
+            }
+        }
+
+        // drive
+        DriveCommand command = new DriveCommand(powerX, powerY, 0.0, 1.0);
+        fieldCentric(command, current);
+
+        return there;
+    }
+
 
     /**
      * Stops all motors

@@ -72,10 +72,6 @@ public class ControllerInput {
      * @author Brantley
      */
 
-    public double getIntakeIdle(Gamepad intakepad) {
-        return ((double) Math.abs(intakepad.left_stick_y));
-    }
-
     public boolean getShooter(Gamepad shooterpad) {
         return (shooterpad.left_trigger_pressed);
     }

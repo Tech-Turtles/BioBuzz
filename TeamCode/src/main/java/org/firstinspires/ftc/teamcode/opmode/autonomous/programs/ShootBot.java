@@ -20,7 +20,6 @@ public class ShootBot extends AutonomousEx {
     // all matchstates for this auto
     public enum MatchState {
         SHOOT,
-        PURGE,
         POSITION,
         PARK,
         OVER
@@ -38,10 +37,8 @@ public class ShootBot extends AutonomousEx {
     public static class Constants {
         @Config("Shoot Autonomous - Position Constants")
         public static class Position {
-            public static double targetX = -40;
-            public static double forward = 1;
-            public static double strafe = 0;
-            public static double twist = 0;
+            public static double x = 40;
+            public static double y = 38;
         }
 
         @Config("Shoot Autonomous - Shoot Constants")
@@ -49,19 +46,12 @@ public class ShootBot extends AutonomousEx {
             public static double time = 12;
         }
 
-        @Config("Shoot Autonomous - Purge Constants")
-        public static class Purge {
-            public static double time = 2;
-        }
-
         // TODO: Rearrange update auto states for ShootBot
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double targetY = 17;
-            public static double forward = 0;
-            public static double strafe = -1;
-            public static double twist = 0;
+            public static double x = 56;
+            public static double y = -32;
         }
     }
 
@@ -85,13 +75,6 @@ public class ShootBot extends AutonomousEx {
             case POSITION:
                 position();
                 break;
-
-            case PURGE:
-                if (timer.seconds() <= Constants.Purge.time) {
-                    purge();
-                } else {
-                    nextState();
-                }
 
             case SHOOT:
                 if (timer.seconds() <= Constants.Shoot.time) {
@@ -130,13 +113,8 @@ public class ShootBot extends AutonomousEx {
 
             case SHOOT:
                 // update matchstate
-                matchState = MatchState.PURGE;
-                // break code
-                break;
-
-            case PURGE:
-                // up
                 matchState = MatchState.POSITION;
+                // break code
                 break;
 
             case PARK:
@@ -149,12 +127,10 @@ public class ShootBot extends AutonomousEx {
 
     // actual action logic, not just states or values
     public void position() {
-        DriveCommand command = new DriveCommand(Constants.Position.forward, Constants.Position.strafe, Constants.Position.twist, 1.0);
-        robot.drive.fieldCentric(command, position);
         // dashboard
         dashboard();
 
-        if (position.getX(DistanceUnit.INCH) <= Constants.Position.targetX) {
+        if (robot.drive.straightToXY(position, new Pose2D(DistanceUnit.INCH, Constants.Position.x, Constants.Position.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
     }
@@ -173,20 +149,14 @@ public class ShootBot extends AutonomousEx {
     }
 
     public void park() {
-        DriveCommand command = new DriveCommand(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, 1.0);
-        robot.drive.fieldCentric(command, position);
         // dashboard
         dashboard();
 
-        if (position.getY(DistanceUnit.INCH) >= Constants.Park.targetY) {
+        if (robot.drive.straightToXY(position, new Pose2D(DistanceUnit.INCH, Constants.Park.x, Constants.Park.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
         // ds
         dashboard();
-    }
-
-    public void purge() {
-        robot.intake.outtake();
     }
 
     // dashboard method

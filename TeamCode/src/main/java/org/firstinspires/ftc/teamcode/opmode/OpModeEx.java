@@ -80,5 +80,8 @@ public class OpModeEx extends OpMode {
         fieldOverlay.setStroke("#3F51B5");
         fieldOverlay.strokeCircle(x, y, robotRadius);
         fieldOverlay.strokeLine(x, y, arrowX, arrowY);
+
+        // send backet
+        dashboard.sendTelemetryPacket(packet);
     }
 }

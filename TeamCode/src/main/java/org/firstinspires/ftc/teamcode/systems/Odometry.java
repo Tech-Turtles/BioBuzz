@@ -85,4 +85,8 @@ public class Odometry {
     public Pose2D getStartPosition() {
         return new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.RADIANS, 0);
     }
+
+    public Pose2D resetHeading() {
+        return new Pose2D(DistanceUnit.MM, position.getX(DistanceUnit.MM), position.getY(DistanceUnit.MM), AngleUnit.RADIANS, 0);
+    }
 }
