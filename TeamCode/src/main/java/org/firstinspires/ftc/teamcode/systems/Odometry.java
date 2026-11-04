@@ -31,9 +31,6 @@ public class Odometry {
             public static double perpOffset = -146.05; // offset of perp pod from center
         }
     }
-
-    Pose2D position;
-
     private double lastL, lastR, lastP;
     public Odometry(Robot robot) {
         // Define the deadwheels
@@ -44,11 +41,9 @@ public class Odometry {
         lastL = (Constants.Directions.leftDeadWheelDirection * leftDeadWheel.getCurrentPosition());
         lastR = (Constants.Directions.rightDeadWheelDirection * rightDeadWheel.getCurrentPosition());
         lastP = (Constants.Directions.perpDeadWheelDirection * perpDeadWheel.getCurrentPosition());
-        // get position from robot
-        position = robot.start;
     }
 
-    public Pose2D position() {
+    public Pose2D position(Pose2D pos) {
         double l = (Constants.Directions.leftDeadWheelDirection * leftDeadWheel.getCurrentPosition());
         double r = (Constants.Directions.rightDeadWheelDirection * rightDeadWheel.getCurrentPosition());
         double p = (Constants.Directions.perpDeadWheelDirection * perpDeadWheel.getCurrentPosition());
@@ -72,11 +67,11 @@ public class Odometry {
             dy = c * dF + s * dS;
         }
 
-        double changeInX = dx * Math.cos(position.getHeading(AngleUnit.RADIANS)) - dy * Math.sin(position.getHeading(AngleUnit.RADIANS));
-        double changeInY = dx * Math.sin(position.getHeading(AngleUnit.RADIANS)) + dy * Math.cos(position.getHeading(AngleUnit.RADIANS));
+        double changeInX = dx * Math.cos(pos.getHeading(AngleUnit.RADIANS)) - dy * Math.sin(pos.getHeading(AngleUnit.RADIANS));
+        double changeInY = dx * Math.sin(pos.getHeading(AngleUnit.RADIANS)) + dy * Math.cos(pos.getHeading(AngleUnit.RADIANS));
         double changeInHeading = dTheta;
 
-        position = new Pose2D(DistanceUnit.MM, position.getX(DistanceUnit.MM) + changeInX, position.getY(DistanceUnit.MM) + changeInY, AngleUnit.RADIANS, position.getHeading(AngleUnit.RADIANS) + changeInHeading);
+        Pose2D position = new Pose2D(DistanceUnit.MM, pos.getX(DistanceUnit.MM) + changeInX, pos.getY(DistanceUnit.MM) + changeInY, AngleUnit.RADIANS, pos.getHeading(AngleUnit.RADIANS) + changeInHeading);
 
         return (position);
 
@@ -86,7 +81,7 @@ public class Odometry {
         return new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.RADIANS, 0);
     }
 
-    public Pose2D resetHeading() {
+    public Pose2D resetHeading(Pose2D position) {
         return new Pose2D(DistanceUnit.MM, position.getX(DistanceUnit.MM), position.getY(DistanceUnit.MM), AngleUnit.RADIANS, 0);
     }
 }

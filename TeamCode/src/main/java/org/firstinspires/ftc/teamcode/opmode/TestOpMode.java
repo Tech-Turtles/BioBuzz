@@ -23,7 +23,7 @@ public class TestOpMode extends OpModeEx {
         // Let users know as soon as the robot starts!
         telemetry.addLine("Started!");
         telemetry.update();
-        // Make your intentions clear to the drive coach
+        // Make your intentions clear to the driver
         telemetry.addLine("Are you ready to rumble?");
         telemetry.update();
         // Now rumble the gamepads

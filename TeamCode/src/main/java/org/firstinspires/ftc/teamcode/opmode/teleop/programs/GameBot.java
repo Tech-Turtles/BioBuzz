@@ -55,7 +55,7 @@ public class GameBot extends TeleOpEx {
 
         // odometry code
         if (input.getResetPosition(gamepad1)) {
-            robot.odometry.resetHeading();
+            position = robot.odometry.resetHeading(position);
         }
     }
 

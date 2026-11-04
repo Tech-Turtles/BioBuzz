@@ -82,8 +82,8 @@ public class Drive {
         double errorX = targetX - x;
         double errorY = targetY - y;
 
-        boolean thereX = (errorX > -1)&&(errorX < 1);
-        boolean thereY = (errorY > -1)&&(errorY < 1);
+        boolean thereX = (errorX > -3)&&(errorX < 3);
+        boolean thereY = (errorY > -3)&&(errorY < 3);
         boolean there = thereX && thereY;
 
         double powerX = 0;
@@ -92,29 +92,28 @@ public class Drive {
         if (!there) {
             if (!thereX) {
                 if (errorX < 0) {
-                    powerX = 1;
+                    powerX = 1 * Math.abs(errorX) * (1 / Math.max(Math.abs(errorX), Math.abs(errorY)));
                 }
                 if (errorX > 0) {
-                    powerX = -1;
+                    powerX = -1 * Math.abs(errorX) * (1 / Math.max(Math.abs(errorX), Math.abs(errorY)));
                 }
             }
             if (!thereY) {
                 if (errorY < 0) {
-                    powerY = -1;
+                    powerY = 1 * Math.abs(errorY) * (1 / Math.max(Math.abs(errorX), Math.abs(errorY)));
                 }
                 if (errorY > 0) {
-                    powerY = 1;
+                    powerY = -1 * Math.abs(errorY) * (1 / Math.max(Math.abs(errorX), Math.abs(errorY)));
                 }
             }
         }
 
         // drive
-        DriveCommand command = new DriveCommand(powerX, powerY, 0.0, 1.0);
+        DriveCommand command = new DriveCommand(powerX, powerY, 0.0, 0.5);
         fieldCentric(command, current);
 
         return there;
     }
-
 
     /**
      * Stops all motors

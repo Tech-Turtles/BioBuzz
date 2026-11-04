@@ -18,17 +18,17 @@ public class MeepMeep {
 
         RoadRunnerBotEntity bot = new DefaultBotBuilder(meepMeep)
                 .setConstraints(
-                        60,
-                        60,
+                        120,
+                        120,
                         Math.toRadians(180),
                         Math.toRadians(180),
                         15
                 )
                 .build();
 
-        bot.runAction(bot.getDrive().actionBuilder(new Pose2d(23-9, 70-9, Math.toRadians(-90)))
-                .strafeToConstantHeading(new Vector2d(40, 38))
-                .strafeToConstantHeading(new Vector2d(56, -32))
+        bot.runAction(bot.getDrive().actionBuilder(new Pose2d(-23+9, -70+9, Math.toRadians(-90)))
+                .strafeToConstantHeading(new Vector2d(-40, -38))
+                .strafeToConstantHeading(new Vector2d(-56, 32))
                 .build()
         );
 

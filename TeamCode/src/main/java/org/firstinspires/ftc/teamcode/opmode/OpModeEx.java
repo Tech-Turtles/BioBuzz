@@ -39,6 +39,8 @@ public class OpModeEx extends OpMode {
         robot = new Robot(hardwareMap, setStart());
         input = new ControllerInput(gamepad1, gamepad2);
         output = new ControllerOutput(gamepad1, gamepad2);
+        // define position
+        position = robot.odometry.position(setStart());
     }
 
     @Override
@@ -54,7 +56,7 @@ public class OpModeEx extends OpMode {
     @Override
     public void loop() {
         // Define position
-        position = robot.odometry.position();
+        position = robot.odometry.position(position);
         // Call dashboard method
         dashboard();
     }

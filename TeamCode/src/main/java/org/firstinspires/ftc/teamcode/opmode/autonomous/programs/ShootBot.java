@@ -37,8 +37,8 @@ public class ShootBot extends AutonomousEx {
     public static class Constants {
         @Config("Shoot Autonomous - Position Constants")
         public static class Position {
-            public static double x = 40;
-            public static double y = 38;
+            public static double x = -40;
+            public static double y = -38;
         }
 
         @Config("Shoot Autonomous - Shoot Constants")
@@ -50,8 +50,8 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double x = 56;
-            public static double y = -32;
+            public static double x = -56;
+            public static double y = 32;
         }
     }
 

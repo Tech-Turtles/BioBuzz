@@ -49,9 +49,8 @@ public class ControllerInput {
         double twist = -drivepad.right_stick_x * speed;
 
         // Create DriveCommand to store these drive values
-        DriveCommand command = new DriveCommand(forward, strafe, twist, speed);
-        // Give back the list of drive values
-        return (command);
+        // Give back the drive command
+        return (new DriveCommand(forward, strafe, twist, speed));
     }
 
     // intake input
@@ -66,11 +65,6 @@ public class ControllerInput {
         return (new IntakeCommand(intakepad.left_stick_y));
     }
 
-    /**
-     * @param intakepad the gamepad that handles idle intaking
-     * @return the absolute value of the left stick y. Useful for keeping balls in and taking them in efficiently
-     * @author Brantley
-     */
 
     public boolean getShooter(Gamepad shooterpad) {
         return (shooterpad.left_trigger_pressed);
