@@ -12,6 +12,13 @@ public class Drive {
     // Declare robot
     public Robot robot;
 
+    public enum Quarter {
+        BLUE_LEFT,
+        BLUE_RIGHT,
+        RED_LEFT,
+        RED_RIGHT;
+    }
+
     public Drive(Robot robot) {
         // Define robot
         this.robot = robot;
@@ -113,6 +120,14 @@ public class Drive {
         fieldCentric(command, current);
 
         return there;
+    }
+
+    public void autoAim(Pose2D position, Pose2D offsets) {
+
+        // get x, y, and heading
+        double x = position.getX(DistanceUnit.MM);
+        double y = position.getY(DistanceUnit.MM);
+        double heading = position.getHeading(AngleUnit.RADIANS);
     }
 
     /**

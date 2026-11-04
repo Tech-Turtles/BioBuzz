@@ -27,4 +27,8 @@ public class IntakeCommand {
     public boolean getPositivity() {
         return positive;
     }
+
+    public double getValue() {
+        return value;
+    }
 }

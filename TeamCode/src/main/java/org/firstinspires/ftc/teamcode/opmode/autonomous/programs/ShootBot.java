@@ -50,7 +50,7 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double x = -56;
+            public static double x = -50;
             public static double y = 32;
         }
     }
