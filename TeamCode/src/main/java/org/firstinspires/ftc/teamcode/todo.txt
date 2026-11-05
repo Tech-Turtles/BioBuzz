@@ -1,6 +1,3 @@
-Make singular function in intake that will accept and IntakeCommand and decide off of that
 Make auto-aiming
-Have alliance be common to all opmodeex
 Make straight to XY hold constant heading
 Make parkbot using new sys
-Make slow mode not squared

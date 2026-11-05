@@ -44,9 +44,9 @@ public class ControllerInput {
         }
 
         // Get drive values from the gamepad decidedly used for driving
-        double forward = drivepad.left_stick_y * speed;
-        double strafe = drivepad.left_stick_x * speed;
-        double twist = -drivepad.right_stick_x * speed;
+        double forward = drivepad.left_stick_y;
+        double strafe = drivepad.left_stick_x;
+        double twist = -drivepad.right_stick_x;
 
         // Create DriveCommand to store these drive values
         // Give back the drive command
@@ -91,7 +91,7 @@ public class ControllerInput {
         return (alliancepad.a);
     }
 
-    public boolean getBlueALliance(Gamepad alliancepad) {
+    public boolean getBlueAlliance(Gamepad alliancepad) {
         // return the conditoin
         return (alliancepad.b);
     }

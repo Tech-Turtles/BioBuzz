@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.teamcode.robot.Robot;
+import org.firstinspires.ftc.teamcode.utility.commands.IntakeCommand;
 
 public class Intake {
     // define the intake motor
@@ -27,14 +28,26 @@ public class Intake {
         intakeServo = robot.hardware.intakeServo;
     }
 
+    public void smartIntake(IntakeCommand command) {
+        if (command.getValidity()) {
+            if (command.getPositivity()) {
+                intake(command.getValue());
+            } else {
+                outtake(command.getValue());
+            }
+        } else {
+            stop();
+        }
+    }
+
     /**
      * Runs the intake in
      * @author Brantley
      */
 
-    public void intake() {
-        intakeMotor.setPower(Constants.motorSpeed);
-        intakeServo.setPower(Constants.servoSpeed);
+    public void intake(double speed) {
+        intakeMotor.setPower(Constants.motorSpeed * speed);
+        intakeServo.setPower(Constants.servoSpeed * speed);
     }
 
     /**
@@ -42,9 +55,9 @@ public class Intake {
      * @author Brantley
      */
 
-    public void outtake() {
-        intakeMotor.setPower(-Constants.motorSpeed);
-        intakeServo.setPower(-Constants.servoSpeed);
+    public void outtake(double speed) {
+        intakeMotor.setPower(-Constants.motorSpeed * speed);
+        intakeServo.setPower(-Constants.servoSpeed * speed);
     }
 
     /**

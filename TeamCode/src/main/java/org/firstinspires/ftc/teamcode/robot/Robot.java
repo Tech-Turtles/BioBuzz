@@ -23,12 +23,12 @@ public class Robot {
 
     public Kicker kicker;
 
-    // declare Pose2D for start
-    public Pose2D start;
+    // declare Pose2D for position
+    public Pose2D position;
 
     public Robot(HardwareMap map, Pose2D start) {
         // define start
-        this.start = start;
+        this.position = start;
 
         // robot variable definitions
         this.hardware = new Hardware(map);

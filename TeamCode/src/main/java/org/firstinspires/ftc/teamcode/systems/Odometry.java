@@ -1,13 +1,11 @@
 package org.firstinspires.ftc.teamcode.systems;
 
 import com.acmerobotics.dashboard.config.Config;
-import com.qualcomm.hardware.gobilda.GoBildaPinpointDriver;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
-import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 
 public class Odometry {
@@ -43,7 +41,7 @@ public class Odometry {
         lastP = (Constants.Directions.perpDeadWheelDirection * perpDeadWheel.getCurrentPosition());
     }
 
-    public Pose2D position(Pose2D pos) {
+    public Pose2D getPosition(Pose2D pos) {
         double l = (Constants.Directions.leftDeadWheelDirection * leftDeadWheel.getCurrentPosition());
         double r = (Constants.Directions.rightDeadWheelDirection * rightDeadWheel.getCurrentPosition());
         double p = (Constants.Directions.perpDeadWheelDirection * perpDeadWheel.getCurrentPosition());

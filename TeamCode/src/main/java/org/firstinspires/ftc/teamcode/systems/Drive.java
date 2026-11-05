@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import com.qualcomm.robotcore.util.Range;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
@@ -11,13 +13,6 @@ public class Drive {
 
     // Declare robot
     public Robot robot;
-
-    public enum Quarter {
-        BLUE_LEFT,
-        BLUE_RIGHT,
-        RED_LEFT,
-        RED_RIGHT;
-    }
 
     public Drive(Robot robot) {
         // Define robot
@@ -89,9 +84,22 @@ public class Drive {
         double errorX = targetX - x;
         double errorY = targetY - y;
 
+        double heading = current.getHeading(AngleUnit.RADIANS);
+        double targetHeading = target.getHeading(AngleUnit.RADIANS);
+
+        double errorH = AngleUnit.normalizeRadians(targetHeading - heading); // wraps to [-π, π]
+        double kH = 4.0;            // tune this
+        double headingDeadband = Math.toRadians(2);
+        double twist = 0;
+
+        if (Math.abs(errorH) > headingDeadband) {
+            twist = -Range.clip(kH * errorH, -1, 1);
+        }
+
         boolean thereX = (errorX > -3)&&(errorX < 3);
         boolean thereY = (errorY > -3)&&(errorY < 3);
-        boolean there = thereX && thereY;
+        boolean thereH = Math.abs(errorH) <= headingDeadband;
+        boolean there = thereX && thereY && thereH;
 
         double powerX = 0;
         double powerY = 0;
@@ -116,18 +124,10 @@ public class Drive {
         }
 
         // drive
-        DriveCommand command = new DriveCommand(powerX, powerY, 0.0, 0.5);
+        DriveCommand command = new DriveCommand(powerX, powerY, twist, 0.5);
         fieldCentric(command, current);
 
         return there;
-    }
-
-    public void autoAim(Pose2D position, Pose2D offsets) {
-
-        // get x, y, and heading
-        double x = position.getX(DistanceUnit.MM);
-        double y = position.getY(DistanceUnit.MM);
-        double heading = position.getHeading(AngleUnit.RADIANS);
     }
 
     /**

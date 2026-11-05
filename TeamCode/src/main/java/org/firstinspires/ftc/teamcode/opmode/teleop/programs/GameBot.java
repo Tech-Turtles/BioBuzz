@@ -16,20 +16,10 @@ public class GameBot extends TeleOpEx {
         super.loop();
 
         // drive code
-        robot.drive.fieldCentric(input.getDrive(gamepad1), position);
+        robot.drive.fieldCentric(input.getDrive(gamepad1), robot.position);
 
         // intake code
-        IntakeCommand command = input.getIntake(gamepad2);
-        // actively intake
-        if (command.getValidity()) {
-            if (command.getPositivity()) {
-                robot.intake.intake();
-            } else {
-                robot.intake.outtake();
-            }
-        } else {
-            robot.intake.stop();
-        }
+        robot.intake.smartIntake(input.getIntake(gamepad2));
 
         // shooter code
         if (input.getShooter(gamepad2)) {
@@ -55,7 +45,7 @@ public class GameBot extends TeleOpEx {
 
         // odometry code
         if (input.getResetPosition(gamepad1)) {
-            position = robot.odometry.resetHeading(position);
+            robot.position = robot.odometry.resetHeading(robot.position);
         }
     }
 

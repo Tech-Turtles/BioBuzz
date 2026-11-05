@@ -21,11 +21,16 @@ public class OpModeEx extends OpMode {
     public ControllerInput input;
     public ControllerOutput output;
 
-    // var for storing odometry to avoid having to call robot.odometry.getPosition() multiple times
-    public Pose2D position;
-
     // Declare dashboard
     public FtcDashboard dashboard = FtcDashboard.getInstance();
+
+    // enum for alliance
+    public static enum Alliance {
+        RED,
+        BLUE
+    }
+    // var for storing alliance
+    Alliance alliance;
 
     // declare start pose
     public Pose2D setStart() {
@@ -39,13 +44,23 @@ public class OpModeEx extends OpMode {
         robot = new Robot(hardwareMap, setStart());
         input = new ControllerInput(gamepad1, gamepad2);
         output = new ControllerOutput(gamepad1, gamepad2);
-        // define position
-        position = robot.odometry.position(setStart());
+        //
     }
 
     @Override
     public void init_loop() {
-        // pass
+        // now alliance selecting block
+        if (input.getRedAlliance(input.gamepad1)||input.getRedAlliance(input.gamepad2)) {
+            // set alliance
+            alliance = Alliance.RED;
+            // rumble controllers
+            output.rumbleAll(1);
+        }
+        if (input.getBlueAlliance(input.gamepad1)||input.getBlueAlliance(input.gamepad2)) {
+            alliance = Alliance.BLUE;
+            // rumble controllers
+            output.rumbleAll(1);
+        }
     }
 
     @Override
@@ -56,7 +71,7 @@ public class OpModeEx extends OpMode {
     @Override
     public void loop() {
         // Define position
-        position = robot.odometry.position(position);
+        robot.position = robot.odometry.getPosition(robot.position);
         // Call dashboard method
         dashboard();
     }
@@ -68,9 +83,9 @@ public class OpModeEx extends OpMode {
         Canvas fieldOverlay = packet.fieldOverlay();
 
         // get the odometry data
-        double x = position.getX(DistanceUnit.INCH);
-        double y = position.getY(DistanceUnit.INCH);
-        double heading = position.getHeading(AngleUnit.RADIANS);
+        double x = robot.position.getX(DistanceUnit.INCH);
+        double y = robot.position.getY(DistanceUnit.INCH);
+        double heading = robot.position.getHeading(AngleUnit.RADIANS);
 
         // get arrow x and y
         double robotRadius = 9;

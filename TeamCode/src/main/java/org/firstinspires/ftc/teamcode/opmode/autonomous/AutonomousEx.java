@@ -34,18 +34,7 @@ AutonomousEx extends OpModeEx {
     public void init_loop() {
         // run parent logic
         super.init_loop();
-        // now alliance selecting block
-        if (input.getRedAlliance(input.gamepad1)||input.getRedAlliance(input.gamepad2)) {
-            // set alliance
-            alliance = Alliance.RED;
-            // rumble controllers
-            output.rumbleAll(1);
-        }
-        if (input.getBlueALliance(input.gamepad1)||input.getBlueALliance(input.gamepad2)) {
-            alliance = Alliance.BLUE;
-            // rumble controllers
-            output.rumbleAll(1);
-        }
+
     }
 
     @Override

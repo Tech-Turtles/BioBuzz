@@ -50,8 +50,8 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double x = -50;
-            public static double y = 32;
+            public static double x = -52;
+            public static double y = 30;
         }
     }
 
@@ -130,16 +130,15 @@ public class ShootBot extends AutonomousEx {
         // dashboard
         dashboard();
 
-        if (robot.drive.straightToXY(position, new Pose2D(DistanceUnit.INCH, Constants.Position.x, Constants.Position.y, AngleUnit.RADIANS, 0))) {
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, Constants.Position.x, Constants.Position.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
     }
 
-    // TODO: Make dashboard() a method of OpModeEx and have children override
 
     public void shoot() {
         // run intake
-        robot.intake.intake();
+        robot.intake.intake(1);
         // run shooter
         robot.shooter.run();
         // smart run the transfer (only if shooter is up to speed)
@@ -152,7 +151,7 @@ public class ShootBot extends AutonomousEx {
         // dashboard
         dashboard();
 
-        if (robot.drive.straightToXY(position, new Pose2D(DistanceUnit.INCH, Constants.Park.x, Constants.Park.y, AngleUnit.RADIANS, 0))) {
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, Constants.Park.x, Constants.Park.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
         // ds
@@ -165,27 +164,6 @@ public class ShootBot extends AutonomousEx {
         // create the stuff
         TelemetryPacket packet = new TelemetryPacket();
         Canvas fieldOverlay = packet.fieldOverlay();
-
-        // get the odometry data
-        double x = position.getX(DistanceUnit.INCH);
-        double y = position.getY(DistanceUnit.INCH);
-        double heading = position.getHeading(AngleUnit.RADIANS);
-
-        // get arrow x and y
-        double robotRadius = 9;
-        double arrowX = x + robotRadius * Math.cos(heading);
-        double arrowY = y + robotRadius * Math.sin(heading);
-
-        // draw the robot's vector on the field
-        fieldOverlay.setStrokeWidth(1);
-        fieldOverlay.setStroke("#3F51B5");
-        fieldOverlay.strokeCircle(x, y, robotRadius);
-        fieldOverlay.strokeLine(x, y, arrowX, arrowY);
-
-        // numerical telemetry
-        packet.put("x (in)", x);
-        packet.put("y (in)", y);
-        packet.put("heading (deg)", Math.toDegrees(heading));
 
         // shooter data
         packet.put("Shooter RPM", robot.shooter.getRPM());
