@@ -68,6 +68,7 @@ public class OpModeEx extends OpMode {
             // rumble controllers
             output.rumbleAll(1);
         }
+        dashboard();
     }
 
     @Override
@@ -105,7 +106,11 @@ public class OpModeEx extends OpMode {
         fieldOverlay.strokeCircle(x, y, robotRadius);
         fieldOverlay.strokeLine(x, y, arrowX, arrowY);
 
-        // send backet
+        telemetry.addData("Alliance", alliance);
+        telemetry.update();
+
+
+        // send packet
         dashboard.sendTelemetryPacket(packet);
     }
 }

@@ -19,6 +19,8 @@ public class IntakeCommand {
         } else if (value < 0) {
             positive = false;
         }
+        // store value
+        this.value = value;
     }
 
     public boolean getValidity() {

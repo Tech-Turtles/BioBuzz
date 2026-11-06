@@ -50,10 +50,12 @@ public class ShootBot extends AutonomousEx {
 
         @Config("Shoot Autonomous - Park Constants")
         public static class Park {
-            public static double x = -52;
+            public static double x = -60;
             public static double y = 30;
         }
     }
+
+    double coeff;
 
     // to hold matchstate
     public MatchState matchState;
@@ -66,6 +68,11 @@ public class ShootBot extends AutonomousEx {
         // assuming blue alliance
         // set matchstate
         matchState = MatchState.SHOOT;
+
+        coeff = 1;
+        if (alliance == Alliance.RED) {
+            coeff = -1;
+        }
     }
 
     // state handling
@@ -130,7 +137,7 @@ public class ShootBot extends AutonomousEx {
         // dashboard
         dashboard();
 
-        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, Constants.Position.x, Constants.Position.y, AngleUnit.RADIANS, 0))) {
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * Constants.Position.x, coeff * Constants.Position.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
     }
@@ -151,7 +158,7 @@ public class ShootBot extends AutonomousEx {
         // dashboard
         dashboard();
 
-        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, Constants.Park.x, Constants.Park.y, AngleUnit.RADIANS, 0))) {
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * Constants.Park.x, coeff * Constants.Park.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
         // ds

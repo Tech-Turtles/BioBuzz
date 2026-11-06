@@ -60,19 +60,5 @@ public class GameBot extends TeleOpEx {
     public void dashboard() {
         // run parent logic: draw the robot on the field
         super.dashboard();
-
-        // create the stuff
-        TelemetryPacket packet = new TelemetryPacket();
-
-        // dashboard data
-        packet.put("Shooter RPM", robot.shooter.getRPM());
-        packet.put("Shooter Target", Shooter.ShooterConsts.speed);
-
-        // telemetry data
-        telemetry.addData("Shooter RPM", robot.shooter.getRPM());
-        telemetry.addData("Shooter Target", Shooter.ShooterConsts.speed);
-
-        // send the packet
-        dashboard.sendTelemetryPacket(packet);
     }
 }
