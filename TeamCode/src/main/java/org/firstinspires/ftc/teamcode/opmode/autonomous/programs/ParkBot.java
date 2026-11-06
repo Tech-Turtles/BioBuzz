@@ -31,7 +31,6 @@ public class ParkBot extends AutonomousEx {
     public void init() {
         // run parent
         super.init();
-        // assuming blue alliance
         // set matchstate
         matchState = MatchState.PARK;
     }

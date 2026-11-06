@@ -1,15 +1,26 @@
 package org.firstinspires.ftc.teamcode.systems;
 
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
+import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
 import org.firstinspires.ftc.teamcode.robot.Hardware;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.utility.commands.DriveCommand;
 
 public class Drive {
+
+    public static class Constants {
+        @Config("Drive AutoAim")
+        public static class AutoAim {
+            public static double x = 15;
+            public static double y = 10;
+        }
+    }
 
     // Declare robot
     public Robot robot;
@@ -93,7 +104,7 @@ public class Drive {
         double twist = 0;
 
         if (Math.abs(errorH) > headingDeadband) {
-            twist = -Range.clip(kH * errorH, -1, 1);
+            twist = Range.clip(kH * errorH, -1, 1);
         }
 
         boolean thereX = (errorX > -3)&&(errorX < 3);
@@ -128,6 +139,38 @@ public class Drive {
         fieldCentric(command, current);
 
         return there;
+    }
+
+    public void autoAim(OpModeEx.Alliance alliance) {
+
+        double targetX = Constants.AutoAim.x;
+        double targetY = Constants.AutoAim.y;
+        if (alliance == OpModeEx.Alliance.BLUE) {
+            targetX = -targetX;
+        }
+        if (robot.position.getY(DistanceUnit.MM) < 0) {
+            targetY = -targetY;
+        }
+
+        double dx = targetX - robot.position.getX(DistanceUnit.MM);
+        double dy = targetY - robot.position.getY(DistanceUnit.MM);
+
+        double twist = 0;
+
+        if (Math.hypot(dx, dy) > 50) {
+            double aimHeading = Math.atan2(dy, dx);
+            double errorH = AngleUnit.normalizeRadians(
+                    aimHeading - robot.position.getHeading(AngleUnit.RADIANS));
+
+            double deadband = Math.toRadians(2);
+            if (Math.abs(errorH) > deadband) {
+                double kH = 2.5, minTwist = 0.08, maxTwist = 0.6;
+                double mag = Range.clip(kH * Math.abs(errorH), minTwist, maxTwist);
+                twist = -Math.signum(errorH) * mag;
+            }
+        }
+
+        fieldCentric(new DriveCommand(0, 0, twist, 0.5), robot.position);
     }
 
     /**

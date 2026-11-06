@@ -12,6 +12,8 @@ import org.firstinspires.ftc.teamcode.control.ControllerOutput;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.control.ControllerInput;
 
+import java.io.IOException;
+
 public class OpModeEx extends OpMode {
 
     // Declare hardware
@@ -30,10 +32,10 @@ public class OpModeEx extends OpMode {
         BLUE
     }
     // var for storing alliance
-    Alliance alliance;
+    public Alliance alliance;
 
     // declare start pose
-    public Pose2D setStart() {
+    public Pose2D setStart() throws IOException {
         // return the start position
         return (new Pose2D(DistanceUnit.MM, 0, 0, AngleUnit.RADIANS, 0));
     }
@@ -41,10 +43,15 @@ public class OpModeEx extends OpMode {
     @Override
     public void init() {
         // Define robot
-        robot = new Robot(hardwareMap, setStart());
+        try {
+            robot = new Robot(hardwareMap, setStart());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         input = new ControllerInput(gamepad1, gamepad2);
         output = new ControllerOutput(gamepad1, gamepad2);
-        //
+        // def alliance to be blue
+        alliance = Alliance.BLUE;
     }
 
     @Override

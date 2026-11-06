@@ -1,8 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmode.autonomous;
 
+import android.os.Build;
+
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.opmode.OpModeEx;
+import org.firstinspires.ftc.teamcode.utility.handling.Handler;
+
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class
 AutonomousEx extends OpModeEx {
@@ -12,14 +19,6 @@ AutonomousEx extends OpModeEx {
     // def timer
     public ElapsedTime timer;
     public ElapsedTime matchTimer;
-
-    // def enum for alliance
-    public enum Alliance {
-        BLUE,
-        RED
-    }
-    // def var to store alliance
-    public Alliance alliance;
 
     @Override
     public void init() {
@@ -58,6 +57,13 @@ AutonomousEx extends OpModeEx {
         super.stop();
         // Stop motors
         robot.stopAll();
+
+        // write position to file
+        try {
+            Handler.writePosition(robot.position);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void stateMachine() {

@@ -79,6 +79,10 @@ public class ControllerInput {
         return (endgameForGamepad1 || endgameForGamepad2);
     }
 
+    public boolean getAutoAim(Gamepad aimpad) {
+        return (aimpad.left_trigger_pressed);
+    }
+
     // pinpoint input
     public boolean getResetPosition(Gamepad resetpad) {
         // return the condition

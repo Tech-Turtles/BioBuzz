@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode.opmode.teleop.programs;
 import com.acmerobotics.dashboard.telemetry.TelemetryPacket;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.teamcode.opmode.autonomous.programs.ParkBot;
 import org.firstinspires.ftc.teamcode.opmode.teleop.TeleOpEx;
 import org.firstinspires.ftc.teamcode.systems.Shooter;
 import org.firstinspires.ftc.teamcode.utility.commands.IntakeCommand;
+import org.firstinspires.ftc.teamcode.opmode.OpModeEx.Alliance;
 
 @TeleOp(name = "GameBot", group = "Bot")
 public class GameBot extends TeleOpEx {
@@ -28,6 +30,11 @@ public class GameBot extends TeleOpEx {
             robot.shooter.stop();
         }
         robot.transfer.smartRun();
+
+        // autoaim code
+        if (input.getAutoAim(gamepad1)) {
+            robot.drive.autoAim(alliance);
+        }
 
         // rpm code
         if (gamepad2.dpadUpWasPressed()) {

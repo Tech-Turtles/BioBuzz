@@ -1,3 +1,1 @@
-Make auto-aiming
-Make straight to XY hold constant heading
 Make parkbot using new sys
