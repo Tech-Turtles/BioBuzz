@@ -17,14 +17,16 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-
         maven {
-            url = 'https://maven.brott.dev/'
+            url 'https://repo.dairy.foundation/releases/'
+            metadataSources {
+                mavenPom()
+                artifact()
+            }
         }
+        maven {url = 'https://maven.brott.dev/'}
+        maven {url = 'https://repo.acmerobotics.org/maven/'}
 
-        maven {
-            url = 'https://repo.acmerobotics.org/maven/'
-        }
     }
 }
 

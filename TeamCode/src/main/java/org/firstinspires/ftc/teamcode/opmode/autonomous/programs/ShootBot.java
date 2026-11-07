@@ -97,9 +97,6 @@ public class ShootBot extends AutonomousEx {
                 stop();
                 break;
         }
-        if (matchTimer.seconds() >= timeAllowed) {
-            matchState = MatchState.OVER;
-        }
     }
 
     @Override

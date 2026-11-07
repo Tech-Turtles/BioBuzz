@@ -17,7 +17,7 @@ public class Shooter {
     @Config("Shooter Speeds")
     public static class ShooterConsts {
         // speed in rotations per minute
-        public static double speed = 3000;
+        public static double speed = 3050;
     }
 
     @Config("Shooter PID")
