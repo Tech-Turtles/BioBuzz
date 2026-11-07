@@ -68,16 +68,10 @@ public class ShootBot extends AutonomousEx {
         // assuming blue alliance
         // set matchstate
         matchState = MatchState.SHOOT;
-    }
 
-    @Override
-    public void init_loop() {
-        super.init_loop();
-
+        coeff = 1;
         if (alliance == Alliance.RED) {
             coeff = -1;
-        } else if (alliance == Alliance.BLUE) {
-            coeff = 1;
         }
     }
 
@@ -104,6 +98,9 @@ public class ShootBot extends AutonomousEx {
             case OVER:
                 stop();
                 break;
+        }
+        if (matchTimer.seconds() >= timeAllowed) {
+            matchState = MatchState.OVER;
         }
     }
 
@@ -164,6 +161,8 @@ public class ShootBot extends AutonomousEx {
         if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * Constants.Park.x, coeff * Constants.Park.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
+        // ds
+        dashboard();
     }
 
     // dashboard method
@@ -182,6 +181,7 @@ public class ShootBot extends AutonomousEx {
         telemetry.addData("Shooter Target", Shooter.ShooterConsts.speed);
 
         telemetry.addData("State", matchState);
+        telemetry.addData("Timer", matchTimer);
         telemetry.addData("Alliance", alliance);
 
         packet.put("State", matchState);
