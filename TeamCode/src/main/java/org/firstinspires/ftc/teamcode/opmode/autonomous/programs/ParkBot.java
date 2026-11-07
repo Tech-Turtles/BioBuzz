@@ -18,21 +18,15 @@ public class ParkBot extends AutonomousEx {
         OVER
     }
 
-
-    @Override
-    public Pose2D setStart() {
-        return (new Pose2D(DistanceUnit.INCH, -36, 59, AngleUnit.DEGREES, 90));
-    }
+    double coeff;
 
     public static class Constants {
         @Config("Park Autonomous - Park Constants")
         public static class Park {
             public static double x = -60;
-            public static double y = 30;
+            public static double y = 35;
         }
     }
-
-    double coeff;
 
     public MatchState matchState;
 
@@ -42,10 +36,16 @@ public class ParkBot extends AutonomousEx {
         super.init();
         // set matchstate
         matchState = MatchState.PARK;
+    }
 
-        coeff = 1;
+    @Override
+    public void init_loop() {
+        super.init_loop();
+
         if (alliance == Alliance.RED) {
             coeff = -1;
+        } else if (alliance == Alliance.BLUE) {
+            coeff = 1;
         }
     }
 
@@ -62,11 +62,20 @@ public class ParkBot extends AutonomousEx {
         }
     }
 
+    public void park() {
+        //
 
+        dashboard();
 
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * Constants.Park.x, coeff * Constants.Park.y, AngleUnit.RADIANS, 0))) {
+            nextState();
+        }
+    }
 
     @Override
     public void nextState() {
+        // reset timer
+        timer.reset();
         // state machine
         switch (matchState) {
             case PARK:
@@ -74,14 +83,6 @@ public class ParkBot extends AutonomousEx {
                 matchState = MatchState.OVER;
                 // brk code
                 break;
-        }
-    }
-
-    public void park() {
-        dashboard();
-
-        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * ShootBot.Constants.Position.x, coeff * ShootBot.Constants.Position.y, AngleUnit.RADIANS, 0))) {
-            nextState();
         }
     }
 }

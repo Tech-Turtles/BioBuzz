@@ -56,8 +56,8 @@ public class Intake {
      */
 
     public void outtake(double speed) {
-        intakeMotor.setPower(-Constants.motorSpeed * speed);
-        intakeServo.setPower(-Constants.servoSpeed * speed);
+        intakeMotor.setPower(Constants.motorSpeed * speed);
+        intakeServo.setPower(Constants.servoSpeed * speed);
     }
 
     /**

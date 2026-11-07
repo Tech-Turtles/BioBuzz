@@ -66,10 +66,16 @@ public class ShootBot extends AutonomousEx {
         // assuming blue alliance
         // set matchstate
         matchState = MatchState.SHOOT;
+    }
 
-        coeff = 1;
+    @Override
+    public void init_loop() {
+        super.init_loop();
+
         if (alliance == Alliance.RED) {
             coeff = -1;
+        } else if (alliance == Alliance.BLUE) {
+            coeff = 1;
         }
     }
 
@@ -156,8 +162,6 @@ public class ShootBot extends AutonomousEx {
         if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * Constants.Park.x, coeff * Constants.Park.y, AngleUnit.RADIANS, 0))) {
             nextState();
         }
-        // ds
-        dashboard();
     }
 
     // dashboard method

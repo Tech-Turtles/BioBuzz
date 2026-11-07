@@ -122,6 +122,7 @@ public class Hardware {
         // Setup shooter mode
         shooterMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         shooterMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        shooterMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Setup transfer servo
         transferServo.setDirection(DcMotorSimple.Direction.REVERSE);
