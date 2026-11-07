@@ -5,6 +5,8 @@ repositories {
     maven {url = 'https://repo.dairy.foundation/releases'}
     maven {url = 'https://repo.acmerobotics.arg/maven/'}
     maven {url = 'https://repo.dairy.foundation/releases/'}
+
+
 }
 
 dependencies {
@@ -24,7 +26,8 @@ dependencies {
 
     implementation "com.pedropathing.ivy:pedro:1.1.1"
     implementation "com.pedropathing:revhub:3.0.2"
-    implementation "com.pedropathing:tuning:1.0.0"
+    implementation 'com.pedropathing:revhub:3.0.2'
+    implementation 'com.pedropathing:tuning:1.0.3'
 
 
 }

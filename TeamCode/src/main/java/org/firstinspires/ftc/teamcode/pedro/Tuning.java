@@ -1,5 +1,14 @@
 package org.firstinspires.ftc.teamcode.pedro;
+import com.pedropathing.revhub.drivetrains.Mecanum;
+import com.pedropathing.tuning.autotune.Tuner;
+import com.pedropathing.tuning.autotune.Procedure;
+import org.firstinspires.ftc.teamcode.pedro.procedures.MecanumTuner;
+import org.firstinspires.ftc.teamcode.pedro.Constants;
+import org.firstinspires.ftc.teamcode.pedro.procedures.Tests;
 
 public class Tuning {
-    // Tuners go here
+    @Tuner
+    public static Procedure mecanumTuner() {
+        return new MecanumTuner();
+    }
 }
