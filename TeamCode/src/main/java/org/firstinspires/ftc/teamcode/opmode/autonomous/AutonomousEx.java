@@ -18,7 +18,7 @@ AutonomousEx extends OpModeEx {
 
     // def timer
     public ElapsedTime timer;
-    public ElapsedTime matchTimer;
+
 
     @Override
     public void init() {
@@ -26,7 +26,6 @@ AutonomousEx extends OpModeEx {
         super.init();
         // def timer
         timer = new ElapsedTime();
-        matchTimer = new ElapsedTime();
     }
 
     @Override
@@ -43,7 +42,7 @@ AutonomousEx extends OpModeEx {
         // start the timer
         timer.reset();
         // start the match timer
-        matchTimer.reset();
+
     }
     @Override
     public void loop() {

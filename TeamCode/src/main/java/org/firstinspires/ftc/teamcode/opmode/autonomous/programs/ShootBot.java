@@ -25,8 +25,6 @@ public class ShootBot extends AutonomousEx {
         OVER
     }
 
-    public float timeAllowed = 30;
-
 
     // all constants for this auto, pay attention to naming convention "Auto name - Auto state"
 
@@ -98,9 +96,6 @@ public class ShootBot extends AutonomousEx {
             case OVER:
                 stop();
                 break;
-        }
-        if (matchTimer.seconds() >= timeAllowed) {
-            matchState = MatchState.OVER;
         }
     }
 
@@ -181,7 +176,6 @@ public class ShootBot extends AutonomousEx {
         telemetry.addData("Shooter Target", Shooter.ShooterConsts.speed);
 
         telemetry.addData("State", matchState);
-        telemetry.addData("Timer", matchTimer);
         telemetry.addData("Alliance", alliance);
 
         packet.put("State", matchState);

@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode.opmode.autonomous.programs;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.opmode.autonomous.AutonomousEx;
 import org.firstinspires.ftc.teamcode.utility.commands.DriveCommand;
 
@@ -15,15 +18,21 @@ public class ParkBot extends AutonomousEx {
         OVER
     }
 
+
+    @Override
+    public Pose2D setStart() {
+        return (new Pose2D(DistanceUnit.INCH, -36, 59, AngleUnit.DEGREES, 90));
+    }
+
     public static class Constants {
         @Config("Park Autonomous - Park Constants")
         public static class Park {
-            public static double time = 0.6;
-            public static double forward = -0.38;
-            public static double strafe = 0.64;
-            public static double twist = 0.0;
+            public static double x = -60;
+            public static double y = 30;
         }
     }
+
+    double coeff;
 
     public MatchState matchState;
 
@@ -33,17 +42,18 @@ public class ParkBot extends AutonomousEx {
         super.init();
         // set matchstate
         matchState = MatchState.PARK;
+
+        coeff = 1;
+        if (alliance == Alliance.RED) {
+            coeff = -1;
+        }
     }
 
     @Override
     public void stateMachine() {
         switch (matchState) {
             case PARK:
-                if (timer.seconds() <= Constants.Park.time) {
-                    park();
-                } else {
-                    nextState();
-                }
+                park();
                 break;
 
             case OVER:
@@ -52,15 +62,11 @@ public class ParkBot extends AutonomousEx {
         }
     }
 
-    public void park() {
-        DriveCommand command = new DriveCommand(Constants.Park.forward, Constants.Park.strafe, Constants.Park.twist, 1.0);
-        robot.drive.robotCentric(command);
-    }
+
+
 
     @Override
     public void nextState() {
-        // reset timer
-        timer.reset();
         // state machine
         switch (matchState) {
             case PARK:
@@ -68,6 +74,14 @@ public class ParkBot extends AutonomousEx {
                 matchState = MatchState.OVER;
                 // brk code
                 break;
+        }
+    }
+
+    public void park() {
+        dashboard();
+
+        if (robot.drive.straightToXY(robot.position, new Pose2D(DistanceUnit.INCH, coeff * ShootBot.Constants.Position.x, coeff * ShootBot.Constants.Position.y, AngleUnit.RADIANS, 0))) {
+            nextState();
         }
     }
 }
