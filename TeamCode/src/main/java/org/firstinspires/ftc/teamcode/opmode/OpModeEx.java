@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose2D;
 import org.firstinspires.ftc.teamcode.control.ControllerOutput;
 import org.firstinspires.ftc.teamcode.robot.Robot;
 import org.firstinspires.ftc.teamcode.control.ControllerInput;
+import org.firstinspires.ftc.teamcode.systems.Shooter;
 
 import java.io.IOException;
 
@@ -107,6 +108,7 @@ public class OpModeEx extends OpMode {
         fieldOverlay.strokeLine(x, y, arrowX, arrowY);
 
         telemetry.addData("Alliance", alliance);
+        telemetry.addData("RPM", Shooter.ShooterConsts.speed);
         telemetry.update();
 
 
